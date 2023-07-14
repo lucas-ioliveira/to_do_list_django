@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div class="row">
+    <h1 class="mt-2">Tarefas</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Status</th>
+                <th scope="col">Data de Criação</th>
+                <th scope="col">Data de Atualização</th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for tarefa in tarefas %}
+            <tr>
+                <td>{{ tarefa.id }}</td>
+                <td>{{ tarefa.nome }}</td>
+                <td>{{ tarefa.status }}</td>
+                <td>{{ tarefa.data_criacao }}</td>
+                <td>{{ tarefa.data_atualizacao}}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'tasks:tarefa_atl' tarefa.pk %}">Editar</a>
+                    <a class="btn btn-danger" href="{% url 'tasks:tarefa_del' tarefa.pk%}">Deletar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
+</div>
+
+{% endblock content %}
