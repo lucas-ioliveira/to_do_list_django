@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'todolist.urls'
@@ -82,17 +83,19 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'mssql',
-        'NAME': 'todolist',
-        'USER': 'sa',
-        'PASSWORD': 'Rootsqlserver,@',
-        'HOST': 'DESKTOP-9E25N9C',
-        'PORT': '',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 13 for SQL Server',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+
+        # Sql server
+        # 'ENGINE': 'mssql',
+        # 'NAME': 'todolist',
+        # 'USER': 'sa',
+        # 'PASSWORD': 'Rootsqlserver,@',
+        # 'HOST': 'DESKTOP-9E25N9C',
+        # 'PORT': '',
+        # 'OPTIONS': {
+        #     'driver': 'ODBC Driver 13 for SQL Server',
+        # },
     }
 }
 
@@ -134,6 +137,13 @@ USE_TZ = True
 # Static
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Login/logout
+LOGIN_REDIRECT_URL = 'tasks:tarefas'
+LOGOUT_REDIRECT_URL = 'tasks:index'
+
+# User custom
+AUTH_USER_MODEL = 'core.CustomUsuario'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

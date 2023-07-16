@@ -3,7 +3,9 @@
 {% block content %}
 
 <div class="row">
-    <h1 class="mt-2">Tarefas</h1>
+    
+    <h1 class="mt-5">Tarefas</h1>
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -36,6 +38,12 @@
 
 <div class="row">
     <a class="btn btn-primary" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
+    <a class="btn btn-secondary ml-2" href="{% url 'tasks:index' %}">Logout</a>
+</div>
+
+
+<div class="row mt-2">
+    {% bootstrap_messages%}
 </div>
 
 {% endblock content %}
