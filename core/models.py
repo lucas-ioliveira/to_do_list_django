@@ -17,10 +17,10 @@ class ToDoList(Base):
         ('Concluido', 'Concluido'),
         ('À fazer', 'À fazer'),
         ('Em andamento', 'Em andamento'),
-        ('Bloqueado', 'Bloqueado'),
+        ('Pausado', 'Pausado'),
         ('Finalizado', 'Finalizado')
     )
-    nome = models.CharField(verbose_name='Nome', max_length=255)
+    titulo = models.CharField(verbose_name='Titulo', max_length=255)
     descricao = models.TextField(verbose_name='Descrição')
     status = models.CharField(verbose_name='Status', max_length=15, 
                               choices=STATUS_CHOICES)
@@ -30,7 +30,7 @@ class ToDoList(Base):
         verbose_name_plural = 'Lista de Tarefas'    
     
     def __str__(self) -> str:
-        return self.nome
+        return self.titulo
 
 
 # Gerenciador

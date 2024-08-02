@@ -5,11 +5,10 @@
 <div class="row mt-5">
    
     <div class="col d-flex align-items-center">
-        <h1 class="mr-auto">Tarefas</h1>
+        <h1 class="mr-auto">Tarefas concluidas</h1>
         <div>
-            <a class="btn btn-success mr-2" href="{% url 'tasks:tarefas_concluidas' %}">Listar tarefas concluídas</a>
-            <a class="btn btn-primary mr-2" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
-            <a class="btn btn-secondary" href="{% url 'tasks:index' %}">Logout</a>
+
+            <a class="btn btn-secondary" href="{% url 'tasks:tarefas' %}">Voltar</a>
         </div>
     </div>
     
@@ -34,8 +33,6 @@
                 <td>{{ tarefa.data_criacao }}</td>
                 <td>{{ tarefa.data_atualizacao}}</td>
                 <td>
-                    <a class="btn btn-success" href="{% url 'tasks:tarefa_concluir' tarefa.pk %}">Concluir</a>
-                    <a class="btn btn-warning" href="{% url 'tasks:tarefa_atl' tarefa.pk %}">Editar</a>
                     <a class="btn btn-danger" href="{% url 'tasks:tarefa_del' tarefa.pk%}">Deletar</a>
                 </td>
             </tr>

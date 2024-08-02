@@ -2,17 +2,16 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<div class="row mt-5">
-    <div class="text-center mt-5">
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="text-center">
         <form method="post">
             {% csrf_token %}
-            <h5>Tem certeza que deseja deletar a tarefa"{{object}}"?</h5>
+            <h5>Tem certeza que deseja deletar a tarefa "{{ object }}"?</h5>
             {% buttons %}
                 <button type="submit" class="btn btn-danger">Confirmar</button>
                 <button type="button" class="btn btn-warning">
-                    <a href="{% url 'tasks:tarefas' %}"> Cancelar </a>
+                    <a href="{% url 'tasks:tarefas' %}">Cancelar</a>
                 </button>
-
             {% endbuttons %}
         </form>
     </div>

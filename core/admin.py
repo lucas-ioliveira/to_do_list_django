@@ -3,7 +3,7 @@ from .models import ToDoList, CustomUsuario
 
 @admin.register(ToDoList)
 class ToDoListAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'descricao', 'status', 'data_criacao',
+    list_display = ('titulo', 'descricao', 'status', 'data_criacao',
                     'data_atualizacao', 'ativo')
 
 from django.contrib import admin

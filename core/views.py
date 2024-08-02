@@ -1,7 +1,7 @@
 # Para menssagens do django
 from django.contrib.messages.views import SuccessMessageMixin
 # Para as funcionalidades do sistema
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Para redirecionar o usuario
 from django.urls import reverse_lazy
@@ -10,6 +10,10 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 # para funções de login e logout
 from django.contrib.auth.views import LoginView, LogoutView
+
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
+
 # Formulário baseado no meu model para auyenticação e registro
 from .forms import CustomUsuarioCreateForm
 # model de usuário e das funções do sistema
@@ -54,26 +58,46 @@ class RegistroUsuarioView(SuccessMessageMixin, CreateView):
 class TarefasView(LoginRequiredMixin, ListView):
     model = ToDoList
     template_name = 'tarefa.html'
-    queryset = ToDoList.objects.all()
+    queryset = ToDoList.objects.exclude(status='Concluido')
     context_object_name = 'tarefas'
 
+
+# Listar tarefas concluidas
+class TarefasConcluidasView(LoginRequiredMixin, ListView):
+    model = ToDoList
+    template_name = 'tarefas_concluidas.html'
+    queryset = ToDoList.objects.filter(status='Concluido')
+    context_object_name = 'tarefas'
+
+
+# Concluir tarefa
+class TarefaConcluirView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        tarefa = get_object_or_404(ToDoList, pk=self.kwargs['pk'])
+        tarefa.status = 'Concluido' 
+        tarefa.save()
+        messages.success(self.request, 'Tarefa concluída com sucesso!')
+        return reverse_lazy('tasks:tarefas')
+        
 
 # Cadastrar tarefa
 class CadastrarTarefaView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = ToDoList
     template_name = 'cadastrar_tarefa.html'
-    fields = ['nome', 'descricao', 'status',]
+    fields = ['titulo', 'descricao', 'status',]
     success_url = reverse_lazy('tasks:tarefas')
     success_message = "A tarefa foi criada com sucesso!"
+
 
 
 # Atualizar
 class AtualizarTarefaView(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
     model = ToDoList
     template_name = 'cadastrar_tarefa.html'
-    fields = ['nome', 'descricao', 'status',]
+    fields = ['titulo', 'descricao', 'status',]
     success_url = reverse_lazy('tasks:tarefas')
     success_message = "A tarefa foi atualizada com sucesso!"
+
 
 
 # Deletar
