@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div class="row mt-5">
+   
+    <div class="col d-flex align-items-center">
+        <h1 class="mr-auto">Tarefas</h1>
+        <div>
+            <a class="btn btn-success mr-2" href="{% url 'tasks:tarefas_concluidas' %}">Listar tarefas concluídas</a>
+            <a class="btn btn-primary mr-2" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
+            <a class="btn btn-secondary" href="{% url 'tasks:index' %}">Logout</a>
+        </div>
+    </div>
+    
+    <table class="table table-striped mt-5">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Título</th>
+                <th scope="col">Status</th>
+                <th scope="col">Data de Criação</th>
+                <th scope="col">Data de Atualização</th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for tarefa in tarefas %}
+            <tr>
+                <td>{{ tarefa.id }}</td>
+                <td>{{ tarefa.titulo }}</td>
+                <td>{{ tarefa.status }}</td>
+                <td>{{ tarefa.data_criacao }}</td>
+                <td>{{ tarefa.data_atualizacao}}</td>
+                <td>
+                    <a class="btn btn-success" href="{% url 'tasks:tarefa_concluir' tarefa.pk %}">Concluir</a>
+                    <a class="btn btn-warning" href="{% url 'tasks:tarefa_atl' tarefa.pk %}">Editar</a>
+                    <a class="btn btn-danger" href="{% url 'tasks:tarefa_del' tarefa.pk%}">Deletar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="row mt-2">
+    {% bootstrap_messages%}
+</div>
+
+{% endblock content %}

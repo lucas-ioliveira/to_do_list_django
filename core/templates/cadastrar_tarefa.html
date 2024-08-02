@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<h1 class="mt-5">Cadastrar uma tarefa</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+        {% buttons%}
+            <button type="submit" class="btn btn-primary"> Salvar </button>
+            <button type="button" class="btn btn-warning"> 
+                <a href="{% url 'tasks:tarefas' %}">Cancelar</a>
+            </button>
+
+        {% endbuttons%}
+
+</form>
+
+{% endblock content %}
