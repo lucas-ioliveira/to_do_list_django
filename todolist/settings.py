@@ -21,13 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = "django-insecure-nkin+@q%(^0i4x19#oo%0x$38(-@^@9pc1g0fmot7pdem&1eh("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = True
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
-
+# ALLOWED_HOSTS = ['to-do-list-django.fly.dev']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # My apps
-    'core',
     # Libs
     'bootstrap4',
+    # My apps
+    'core',
+    'accounts',
+
 ]
 
 MIDDLEWARE = [
@@ -60,9 +62,7 @@ ROOT_URLCONF = 'todolist.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates')
-        ],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,12 +129,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Login/logout
 LOGIN_REDIRECT_URL = 'tasks:tarefas'
-LOGOUT_REDIRECT_URL = 'tasks:index'
 
-# User custom
-AUTH_USER_MODEL = 'core.CustomUsuario'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = ['https://to-do-list-django.fly.dev']
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
