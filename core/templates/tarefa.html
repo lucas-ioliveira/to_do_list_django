@@ -32,14 +32,12 @@
                 <td>{{ tarefa.titulo }}</td>
                 {% if tarefa.status == 'À fazer' %}
                     <td class="badge badge-primary">{{ tarefa.status }}</td>
-                {% elif tarefa.status == 'Em andamento' %}
-                    <td class="badge badge-warning">{{ tarefa.status }}</td>
+                {% elif tarefa.status == 'Andamento' %}
+                    <td class="badge badge-info">{{ tarefa.status }}</td>
                 {% elif tarefa.status == 'Pausado' %}
-                    <td class="badge badge-secondary">{{ tarefa.status }}</td>
+                    <td  class="badge badge-warning" style="color: white;">{{ tarefa.status }}</td>
                 {% elif tarefa.status == 'Concluido' %}
                     <td class="badge badge-success">{{ tarefa.status }}</td>
-                {% elif tarefa.status == 'Finalizado' %}
-                    <td class="badge badge-danger">{{ tarefa.status }}</td>
                 {% endif %}
                 <td>{{ tarefa.data_criacao }}</td>
                 <td>{{ tarefa.data_atualizacao}}</td>
