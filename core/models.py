@@ -16,9 +16,8 @@ class ToDoList(Base):
     STATUS_CHOICES = (
         ('Concluido', 'Concluido'),
         ('À fazer', 'À fazer'),
-        ('Em andamento', 'Em andamento'),
-        ('Pausado', 'Pausado'),
-        ('Finalizado', 'Finalizado')
+        ('Andamento', 'Andamento'),
+        ('Pausado', 'Pausado')
     )
     usuario = models.ForeignKey(User, verbose_name='usuario', on_delete=models.CASCADE)
     titulo = models.CharField(verbose_name='Titulo', max_length=255)
