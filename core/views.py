@@ -31,8 +31,20 @@ class TarefasView(LoginRequiredMixin, ListView):
     context_object_name = 'tarefas'
 
     def get_queryset(self):
-        return ToDoList.objects.filter(usuario=self.request.user)
+        return ToDoList.objects.filter(usuario=self.request.user, status='À fazer')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        usuario = self.request.user
+        context['total_tarefas'] = ToDoList.objects.filter(usuario=usuario).count()
+        context['tarefas_concluidas'] = ToDoList.objects.filter(usuario=usuario, status='Concluido').count()
+        context['tarefas_em_andamento'] = ToDoList.objects.filter(usuario=usuario, status='Andamento').count()
+        context['tarefas_a_fazer'] = ToDoList.objects.filter(usuario=usuario, status='À fazer').count()
+        context['tarefas_pausadas'] = ToDoList.objects.filter(usuario=usuario, status='Pausado').count()
 
+        return context
+    
 
 # Listar tarefas concluidas
 class TarefasConcluidasView(LoginRequiredMixin, ListView):
@@ -42,6 +54,16 @@ class TarefasConcluidasView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return ToDoList.objects.filter(usuario=self.request.user, status='Concluido')
+
+
+# Listar tarefas andamento
+class TarefasAndamentoView(LoginRequiredMixin, ListView):
+    model = ToDoList
+    template_name = 'tarefas_andamento.html'
+    context_object_name = 'tarefas'
+
+    def get_queryset(self):
+        return ToDoList.objects.filter(usuario=self.request.user, status='Andamento')
 
 
 # Concluir tarefa

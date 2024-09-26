@@ -1,0 +1,8 @@
+<button type="button" class="btn btn-secondary" 
+    onclick="modalAlterar(
+        '{{ tarefa.id }}', 
+        '{% url 'tasks:tarefa_concluir' tarefa.id %}', 
+        '{% url 'tasks:tarefa_atl' tarefa.id %}', 
+        '{% url 'tasks:tarefa_del' tarefa.id %}')">
+        Alterar
+</button>
