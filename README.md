@@ -1,8 +1,8 @@
 # To-do List.
 
-Nesse repositório contém um projeto fullstack realizado o front-end com o BootStrap 4 e o back-end com Python e o framework Django.
+Nesse repositório contém um projeto fullstack realizado o front-end com Html, Css, BootStrap 4 e o back-end com Python e o framework Django.
 
-Desenvolvi esse projeto com o intuito de aplicar conhecimentos sobre class based views.
+Desenvolvi esse projeto com o intuito de aplicar conhecimentos sobre class based views do Django.
 
 O projeto consiste em um sistema (CRUD) to-do list, onde o usuário do sistema consegue realizar login no sistema,
 cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar todos as tarefas concluidas em uma tela onde as tarefas são apresentadas em uma tabela.
@@ -14,7 +14,10 @@ cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar
 - Ativação do ambiente criado anteriormente (Linux: source venv/bin/activate ou no Windows: venv\Scripts\activate);
 - Instalação dos requirements.txt disponibilizados (pip insall -r requirements.txt);
 - O banco de dados é de sua escolha, mas nesse projeto utilizei o SQLite (Caso escolha um banco de dados diferente do padrão não esqueça de realizar as alterações no arquivo settings.py);
-- OBS: Caso tenha o Docker intalado será o suficiente e apenas precisará rodar o docker compose disponibilizado;
+- OBS¹: Caso tenha o Docker intalado será o suficiente e apenas precisará rodar o docker compose disponibilizado
+(No diretório do projeto rodar o comando: docker compose -f docker-compose.yml up -d --build);
+- OBS²: Caso opte por rodar o projeto sem usar o docker, é necessário remover algumas configurações de variáveis de ambiente existente no settings.py e deixar padrão;
+
 
 
 ### Execução do sistema
@@ -56,6 +59,13 @@ e com os dados certos para a liberação do acesso.
 ![Rota para o dashboard](docs/img/principal.png)
 
 
+#### Rota para cadastrar tarefas (/tarefas/add) ou editar (/tarefas/id/atualizar);
+
+- Realizar o cadastro ou editar a tarefa, pois usa o mesmo formulário.
+
+![Rota para cadastrar tarefa](docs/img/cad-tarefas.png)
+
+
 #### Rota para visualizar as tarefas concluídas (tarefas/concluidas);
 
 - Visualizar tarefas concluidas.
@@ -63,11 +73,27 @@ e com os dados certos para a liberação do acesso.
 ![Rota para o dashboard](docs/img/concluidas.png)
 
 
-#### Rota para cadastrar tarefas (/tarefas/add) ou editar (/tarefas/id/atualizar);
+#### Rota para visualizar as tarefas em andamento (tarefas/andamento);
 
-- Realizar o cadastro ou editar a tarefa, pois usa o mesmo formulário.
+- Visualizar tarefas em andamento.
 
-![Rota para cadastrar tarefa](docs/img/cad-tarefas.png)
+![Rota para o dashboard](docs/img/andamento.png)
+
+
+#### Modal detalhes;
+
+- Ao clicar no botão detalhes sobe um modal com as informações da tarefa.
+
+![Modal detalhes](docs/img/modal-detalhes.png)
+
+
+#### Modal alterar;
+
+- Ao clicar no botão alterar sobe um modal com botões para realizar ações.
+
+![Modal detalhes](docs/img/modal-alterar.png)
+
+
 
 #### Rota para excluir uma tarefas (/tarefas/id/deletar);
 
