@@ -7,16 +7,32 @@
         <div class="col d-flex align-items-center">
             <h1 class="mr-auto">Tarefas</h1>
             <div>
-                <a class="btn btn-success mr-2" href="{% url 'tasks:tarefas_concluidas' %}">Listar tarefas concluídas</a>
                 <a class="btn btn-primary mr-2" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
                 <a class="btn btn-secondary" href="{% url 'tasks:index' %}">Logout</a>
             </div>
         </div>
+
+        <div class="col d-flex align-items-center mt-3">
+            <div>
+
+                <a class="btn btn-success mr-2" href="{% url 'tasks:tarefas_concluidas' %}">
+                    Concluídas
+                    <span class="badge badge-light">{{ tarefas_concluidas }}</span>
+                </a>
+
+                <a class="btn btn-info mr-2" href="{% url 'tasks:tarefas_concluidas' %}">
+                    Andamento
+                    <span class="badge badge-light">{{ tarefas_em_andamento }}	</span>
+                </a>
+
+            </div>
+        </div>
+
+        <br>
         
         {% bootstrap_messages %}
 
-        
-        <table class="table table-striped mt-5">
+        <table class="table table-striped mt-3">
             <thead>
                 <tr>
                     <th scope="col">Id</th>
@@ -64,11 +80,11 @@
 
                     {% endif %}
 
-                    <td>
+                    <td style="text-align: center;">
                         {{ tarefa.data_criacao }}
                     </td>
 
-                    <td>
+                    <td style="text-align: center;">
 
                         <button type="button" class="btn btn-info" 
                             onclick="modalDetalhes(
