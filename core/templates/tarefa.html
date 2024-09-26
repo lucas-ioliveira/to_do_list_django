@@ -2,58 +2,181 @@
 {% load bootstrap4 %}
 {% block content %}
 
-<div class="row mt-5">
-   
-    <div class="col d-flex align-items-center">
-        <h1 class="mr-auto">Tarefas</h1>
-        <div>
-            <a class="btn btn-success mr-2" href="{% url 'tasks:tarefas_concluidas' %}">Listar tarefas concluídas</a>
-            <a class="btn btn-primary mr-2" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
-            <a class="btn btn-secondary" href="{% url 'tasks:index' %}">Logout</a>
-        </div>
-    </div>
+    <div class="mt-5">
     
-    <table class="table table-striped mt-5">
-        <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Título</th>
-                <th scope="col">Status</th>
-                <th scope="col">Data de Criação</th>
-                <th scope="col">Data de Atualização</th>
-                <th scope="col">Ação</th>
-            </tr>
-        </thead>
+        <div class="col d-flex align-items-center">
+            <h1 class="mr-auto">Tarefas</h1>
+            <div>
+                <a class="btn btn-success mr-2" href="{% url 'tasks:tarefas_concluidas' %}">Listar tarefas concluídas</a>
+                <a class="btn btn-primary mr-2" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
+                <a class="btn btn-secondary" href="{% url 'tasks:index' %}">Logout</a>
+            </div>
+        </div>
         
-        <tbody>
-            {% for tarefa in tarefas %}
-            <tr>
-                <td>{{ tarefa.id }}</td>
-                <td>{{ tarefa.titulo }}</td>
-                {% if tarefa.status == 'À fazer' %}
-                    <td class="badge badge-primary">{{ tarefa.status }}</td>
-                {% elif tarefa.status == 'Andamento' %}
-                    <td class="badge badge-info">{{ tarefa.status }}</td>
-                {% elif tarefa.status == 'Pausado' %}
-                    <td  class="badge badge-warning" style="color: white;">{{ tarefa.status }}</td>
-                {% elif tarefa.status == 'Concluido' %}
-                    <td class="badge badge-success">{{ tarefa.status }}</td>
-                {% endif %}
-                <td>{{ tarefa.data_criacao }}</td>
-                <td>{{ tarefa.data_atualizacao}}</td>
-                <td>
-                    <a class="btn btn-success" href="{% url 'tasks:tarefa_concluir' tarefa.pk %}">Concluir</a>
-                    <a class="btn btn-warning" href="{% url 'tasks:tarefa_atl' tarefa.pk %}">Editar</a>
-                    <a class="btn btn-danger" href="{% url 'tasks:tarefa_del' tarefa.pk%}">Deletar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+        {% bootstrap_messages %}
 
-<div class="row mt-2">
-    {% bootstrap_messages%}
-</div>
+        
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Data de Criação</th>
+                    <th scope="col">Ação</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for tarefa in tarefas %}
+                <tr>
+                    <td>
+                        {{ tarefa.id }}
+                    </td>
+
+                    <td>
+                        {{ tarefa.titulo }}
+                    </td>
+
+                    {% if tarefa.status == 'À fazer' %}
+
+                        <td class="badge badge-primary">
+                            {{ tarefa.status }}
+                        </td>
+
+                    {% elif tarefa.status == 'Andamento' %}
+
+                        <td class="badge badge-info">
+                            {{ tarefa.status }}
+                        </td>
+
+                    {% elif tarefa.status == 'Pausado' %}
+
+                        <td  class="badge badge-warning" style="color: white;">
+                            {{ tarefa.status }}
+                        </td>
+
+                    {% elif tarefa.status == 'Concluido' %}
+
+                        <td class="badge badge-success">
+                            {{ tarefa.status }}
+                        </td>
+
+                    {% endif %}
+
+                    <td>
+                        {{ tarefa.data_criacao }}
+                    </td>
+
+                    <td>
+
+                        <button type="button" class="btn btn-info" 
+                            onclick="modalDetalhes(
+                                '{{ tarefa.titulo|escapejs }}', 
+                                '{{ tarefa.status|escapejs }}', 
+                                '{{ tarefa.descricao|escapejs }}', 
+                                '{{ tarefa.data_criacao|escapejs }}', 
+                                '{{ tarefa.data_atualizacao|escapejs }}')">
+                            Detalhes
+                        </button>
+
+                        <button type="button" class="btn btn-info" 
+                            onclick="modalAlterar(
+                                '{{ tarefa.id }}', 
+                                '{% url 'tasks:tarefa_concluir' tarefa.id %}', 
+                                '{% url 'tasks:tarefa_atl' tarefa.id %}', 
+                                '{% url 'tasks:tarefa_del' tarefa.id %}')">
+                            Alterar
+                        </button>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Modal Detalhes-->
+        <div class="modal fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="modalDetalhes" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalDetalhesTitle">Detalhes</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div id="divDetalhesBody" class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal alterar-->
+        <div class="modal fade" id="modalAlterar" tabindex="-1" role="dialog" aria-labelledby="modalAlterar" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalAlterarTitle">Realizar Alteração</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div id="divAlterarBody" class="modal-body text-center">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        function modalDetalhes(titulo, status, descricao, dataCriacao, dataAtualizacao) {
+
+            const modalBody = document.getElementById('divDetalhesBody');
+        
+            modalBody.innerHTML = `
+                <p><strong>Título:</strong> ${titulo}</p>
+                <p><strong>Status:</strong> ${status}</p>
+                <p><strong>Descrição:</strong> ${descricao}</p>
+                <p><strong>Data de Criação:</strong> ${dataCriacao}</p>
+                <p><strong>Data de Atualização:</strong> ${dataAtualizacao}</p>
+            `;
+        
+            const modalElement = document.getElementById('modalDetalhes');
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
+
+        function modalAlterar(id, urlConcluir, urlEditar, urlDeletar) {
+
+            const divAlterarBody = document.getElementById('divAlterarBody');
+            
+            divAlterarBody.innerHTML = `
+                <a class="btn btn-success mr-4" href="${urlConcluir}">Concluir</a>
+                <a style="color: white;" class="btn btn-warning mr-4" href="${urlEditar}">Editar</a>
+                <a class="btn btn-danger mr-4" href="${urlDeletar}">Deletar</a>
+            `;
+
+            const modalElement = document.getElementById('modalAlterar');
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
+
+
+    </script>
 
 {% endblock content %}
