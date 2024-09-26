@@ -16,7 +16,6 @@
     <table class="table table-striped mt-5">
         <thead>
             <tr>
-                <th scope="col">Id</th>
                 <th scope="col">Título</th>
                 <th scope="col">Status</th>
                 <th scope="col">Data de Criação</th>
@@ -28,7 +27,6 @@
         <tbody>
             {% for tarefa in tarefas %}
             <tr>
-                <td>{{ tarefa.id }}</td>
                 <td>{{ tarefa.titulo }}</td>
                 <td class="badge badge-info">{{ tarefa.status }}</td>
                 <td>{{ tarefa.data_criacao }}</td>
