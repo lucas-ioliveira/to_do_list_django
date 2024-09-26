@@ -20,7 +20,7 @@
                     <span class="badge badge-light">{{ tarefas_concluidas }}</span>
                 </a>
 
-                <a class="btn btn-info mr-2" href="{% url 'tasks:tarefas_concluidas' %}">
+                <a class="btn btn-info mr-2" href="{% url 'tasks:tarefas_andamento' %}">
                     Andamento
                     <span class="badge badge-light">{{ tarefas_em_andamento }}	</span>
                 </a>
@@ -86,24 +86,8 @@
 
                     <td style="text-align: center;">
 
-                        <button type="button" class="btn btn-info" 
-                            onclick="modalDetalhes(
-                                '{{ tarefa.titulo|escapejs }}', 
-                                '{{ tarefa.status|escapejs }}', 
-                                '{{ tarefa.descricao|escapejs }}', 
-                                '{{ tarefa.data_criacao|escapejs }}', 
-                                '{{ tarefa.data_atualizacao|escapejs }}')">
-                            Detalhes
-                        </button>
-
-                        <button type="button" class="btn btn-info" 
-                            onclick="modalAlterar(
-                                '{{ tarefa.id }}', 
-                                '{% url 'tasks:tarefa_concluir' tarefa.id %}', 
-                                '{% url 'tasks:tarefa_atl' tarefa.id %}', 
-                                '{% url 'tasks:tarefa_del' tarefa.id %}')">
-                            Alterar
-                        </button>
+                        {% include "partials/button/_button_detalhes.html" %}
+                        {% include "partials/button/_button_alterar.html" %}
 
                     </td>
                 </tr>
@@ -111,88 +95,9 @@
             </tbody>
         </table>
 
-        <!-- Modal Detalhes-->
-        <div class="modal fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="modalDetalhes" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalDetalhesTitle">Detalhes</h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div id="divDetalhesBody" class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal alterar-->
-        <div class="modal fade" id="modalAlterar" tabindex="-1" role="dialog" aria-labelledby="modalAlterar" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalAlterarTitle">Realizar Alteração</h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div id="divAlterarBody" class="modal-body text-center">
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include "partials/modal/_modal_detalhes.html" %}
+        {% include "partials/modal/_modal_alterar.html" %}
 
     </div>
-
-    <script>
-
-        function modalDetalhes(titulo, status, descricao, dataCriacao, dataAtualizacao) {
-
-            const modalBody = document.getElementById('divDetalhesBody');
-        
-            modalBody.innerHTML = `
-                <p><strong>Título:</strong> ${titulo}</p>
-                <p><strong>Status:</strong> ${status}</p>
-                <p><strong>Descrição:</strong> ${descricao}</p>
-                <p><strong>Data de Criação:</strong> ${dataCriacao}</p>
-                <p><strong>Data de Atualização:</strong> ${dataAtualizacao}</p>
-            `;
-        
-            const modalElement = document.getElementById('modalDetalhes');
-            const modal = new bootstrap.Modal(modalElement);
-            modal.show();
-        }
-
-        function modalAlterar(id, urlConcluir, urlEditar, urlDeletar) {
-
-            const divAlterarBody = document.getElementById('divAlterarBody');
-            
-            divAlterarBody.innerHTML = `
-                <a class="btn btn-success mr-4" href="${urlConcluir}">Concluir</a>
-                <a style="color: white;" class="btn btn-warning mr-4" href="${urlEditar}">Editar</a>
-                <a class="btn btn-danger mr-4" href="${urlDeletar}">Deletar</a>
-            `;
-
-            const modalElement = document.getElementById('modalAlterar');
-            const modal = new bootstrap.Modal(modalElement);
-            modal.show();
-        }
-
-
-    </script>
 
 {% endblock content %}

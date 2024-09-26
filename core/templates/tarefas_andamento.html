@@ -5,7 +5,7 @@
 <div class="row mt-5">
    
     <div class="col d-flex align-items-center">
-        <h1 class="mr-auto">Tarefas concluídas</h1>
+        <h1 class="mr-auto">Tarefas em andamento</h1>
 
         <div>
             {% include "partials/links/_link_button_voltar.html" %}
@@ -30,7 +30,7 @@
             <tr>
                 <td>{{ tarefa.id }}</td>
                 <td>{{ tarefa.titulo }}</td>
-                <td class="badge badge-success">{{ tarefa.status }}</td>
+                <td class="badge badge-info">{{ tarefa.status }}</td>
                 <td>{{ tarefa.data_criacao }}</td>
                 <td>{{ tarefa.data_atualizacao}}</td>
                 <td>

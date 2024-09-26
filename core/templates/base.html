@@ -6,12 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% bootstrap_css %}
     <style>
+
+      body {
+        background-color: #f8f9fa;
+      }
       th {
         text-align: center;
       }
       td {  
         margin: 10px;
       }
+      
     </style>
 
     <title>To-do List</title>
@@ -23,15 +28,11 @@
         
         {% endblock content %}
 
-        <footer class=" text-center mt-5 py-3 fixed-bottom">
-            <div class="container">
-              <span>&copy; 2023 To-do List | Lucas Oliveira. Todos os direitos reservados.</span>
-            </div>
-          </footer>
+        {% include "partials/footer/_footer.html" %}
 
     </div>
     
-    
     {% bootstrap_javascript jquery='full' %}
+
 </body>
 </html>
