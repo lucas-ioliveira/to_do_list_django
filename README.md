@@ -56,7 +56,7 @@ e com os dados certos para a liberação do acesso.
 
  - Dashboard para visualizar as tarefas que precisam ser realizadas ou em outro status. Nessa tela o usuário pode realizar algumas ações.
 
-![Rota para o dashboard](docs/img/principal.png)
+![Rota para o dashboard](docs/img/tarefas.png)
 
 
 #### Rota para cadastrar tarefas (/tarefas/add) ou editar (/tarefas/id/atualizar);
