@@ -9,7 +9,7 @@
             <div>
                 <form method="POST" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <a class="btn btn-primary mr-2" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
+                    <a class="btn btn-primary mr-2" href="{% url 'tasks:tarefa_add' %}">Adicionar uma tarefa</a>
                     <button type="submit" class="btn btn-secondary">Logout</button>
                 </form>
                 
