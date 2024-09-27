@@ -15,6 +15,8 @@ from django.contrib import messages
 # model de usuário e das funções do sistema
 from .models import ToDoList
 
+from .utils import get_tarefas_by_status
+
 
 # Home
 # Index
@@ -53,7 +55,7 @@ class TarefasConcluidasView(LoginRequiredMixin, ListView):
     context_object_name = 'tarefas'
 
     def get_queryset(self):
-        return ToDoList.objects.filter(usuario=self.request.user, status='Concluido')
+        return get_tarefas_by_status(self.request.user, 'Concluido')
 
 
 # Listar tarefas andamento
@@ -63,11 +65,11 @@ class TarefasAndamentoView(LoginRequiredMixin, ListView):
     context_object_name = 'tarefas'
 
     def get_queryset(self):
-        return ToDoList.objects.filter(usuario=self.request.user, status='Andamento')
+        return get_tarefas_by_status(self.request.user, 'Andamento')
 
 
 # Concluir tarefa
-class TarefaConcluirView(RedirectView):
+class TarefaConcluirView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         tarefa = get_object_or_404(ToDoList, pk=self.kwargs['pk'])
         tarefa.status = 'Concluido' 
