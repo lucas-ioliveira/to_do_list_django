@@ -23,13 +23,14 @@
 
 <script>
 
-    function modalAlterar(id, urlConcluir, urlEditar, urlDeletar) {
+    function modalAlterar(id, urlConcluir, urlEditar, urlClonar, urlDeletar) {
 
         const divAlterarBody = document.getElementById('divAlterarBody');
         
         divAlterarBody.innerHTML = `
             <a class="btn btn-success mr-4" href="${urlConcluir}">Concluir</a>
             <a style="color: white;" class="btn btn-warning mr-4" href="${urlEditar}">Editar</a>
+            <a style="color: white;" class="btn btn-info mr-4" href="${urlClonar}">Clonar</a>
             <a class="btn btn-danger mr-4" href="${urlDeletar}">Deletar</a>
         `;
 
