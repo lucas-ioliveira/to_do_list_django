@@ -11,37 +11,41 @@
             {% include "partials/links/_link_button_voltar.html" %}
         </div>
 
-    </div>
+    </div> 
+
+    <div class="table-responsive">
     
-    <table class="table table-striped mt-5">
-        <thead>
-            <tr>
-                <th scope="col">Título</th>
-                <th scope="col">Status</th>
-                <th scope="col">Data de Criação</th>
-                <th scope="col">Data de Atualização</th>
-                <th scope="col">Ação</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-            {% for tarefa in tarefas %}
-            <tr>
-                <td>{{ tarefa.titulo }}</td>
-                <td class="badge badge-info">{{ tarefa.status }}</td>
-                <td>{{ tarefa.data_criacao }}</td>
-                <td>{{ tarefa.data_atualizacao}}</td>
-                <td>
-                    {% include "partials/button/_button_detalhes.html" %}
-                    {% include "partials/button/_button_alterar.html" %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Título</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Data de Criação</th>
+                    <th scope="col">Data de Atualização</th>
+                    <th scope="col">Ação</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for tarefa in tarefas %}
+                <tr>
+                    <td>{{ tarefa.titulo }}</td>
+                    <td class="badge badge-info">{{ tarefa.status }}</td>
+                    <td>{{ tarefa.data_criacao }}</td>
+                    <td>{{ tarefa.data_atualizacao}}</td>
+                    <td>
+                        {% include "partials/button/_button_detalhes.html" %}
+                        {% include "partials/button/_button_alterar.html" %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     {% include "partials/modal/_modal_detalhes.html" %}
     {% include "partials/modal/_modal_alterar.html" %}
+    {% include "partials/paginate/_paginate.html" %}
 
 </div>
 
