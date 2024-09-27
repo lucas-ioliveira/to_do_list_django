@@ -32,9 +32,10 @@ class TarefasView(LoginRequiredMixin, ListView):
     model = ToDoList
     template_name = 'tarefa.html'
     context_object_name = 'tarefas'
+    paginate_by = 6
 
     def get_queryset(self):
-        return ToDoList.objects.filter(usuario=self.request.user, status='À fazer')
+        return ToDoList.objects.filter(usuario=self.request.user, status='À fazer').order_by('-data_criacao')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -54,9 +55,10 @@ class TarefasConcluidasView(LoginRequiredMixin, ListView):
     model = ToDoList
     template_name = 'tarefas_concluidas.html'
     context_object_name = 'tarefas'
+    paginate_by = 6
 
     def get_queryset(self):
-        return get_tarefas_by_status(self.request.user, 'Concluido')
+        return get_tarefas_by_status(self.request.user, 'Concluido').order_by('-data_criacao')
 
 
 # Listar tarefas andamento
@@ -64,9 +66,10 @@ class TarefasAndamentoView(LoginRequiredMixin, ListView):
     model = ToDoList
     template_name = 'tarefas_andamento.html'
     context_object_name = 'tarefas'
+    paginate_by = 6
 
     def get_queryset(self):
-        return get_tarefas_by_status(self.request.user, 'Andamento')
+        return get_tarefas_by_status(self.request.user, 'Andamento').order_by('-data_criacao')
 
 
 # Concluir tarefa
