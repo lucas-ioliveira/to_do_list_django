@@ -1,24 +1,35 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load bootstrap4 %}
 {% block content %}
 
-    <div class="mt-5">
+    <div class="container mt-5">
     
-        <div class="col d-flex align-items-center">
-            <h1 class="mr-auto">Tarefas</h1>
-            <div>
+        <div class="row d-flex align-items-center">
+            <div class="col">
+                <h1 class="mr-auto">Tarefas</h1>
+            </div>
+            <div class="col-auto">
                 <form method="POST" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <a class="btn btn-primary mr-2" href="{% url 'tasks:tarefa_add' %}">Adicionar uma tarefa</a>
-                    <button type="submit" class="btn btn-secondary">Logout</button>
+                    <a class="btn btn-primary mr-2" href="{% url 'tasks:tarefa_add' %}">
+                        Adicionar uma tarefa
+                        <span style="margin-left: 5px;">
+                            <img src="{% static 'core/images/mais.png' %}" alt="Logout" style="width: 20px; height: 20px; margin-right: 5px;">
+                        </span>
+                    </a>
+                    <button type="submit" class="btn btn-secondary">
+                        Logout
+                        <span style="margin-left: 5px;">
+                            <img src="{% static 'core/images/sair-do-usuario-2.png' %}" alt="Logout" style="width: 20px; height: 20px; margin-right: 5px;">
+                        </span>
+                    </button>
                 </form>
-                
             </div>
         </div>
 
-        <div class="col d-flex align-items-center mt-3">
-            <div>
-
+        <div class="row d-flex align-items-center mt-3">
+            <div class="col">
                 <a class="btn btn-success mr-2" href="{% url 'tasks:tarefas_concluidas' %}">
                     Concluídas
                     <span class="badge badge-light">{{ tarefas_concluidas }}</span>
@@ -26,9 +37,8 @@
 
                 <a class="btn btn-info mr-2" href="{% url 'tasks:tarefas_andamento' %}">
                     Andamento
-                    <span class="badge badge-light">{{ tarefas_em_andamento }}	</span>
+                    <span class="badge badge-light">{{ tarefas_em_andamento }}</span>
                 </a>
-
             </div>
         </div>
 
@@ -36,67 +46,60 @@
         
         {% bootstrap_messages %}
 
-        <table class="table table-striped mt-3">
-            <thead>
-                <tr>
-                    <th scope="col">Título</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Data de Criação</th>
-                    <th scope="col">Ação</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                {% for tarefa in tarefas %}
-                <tr>
+        <div class="table-responsive">
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">Título</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Data de Criação</th>
+                        <th scope="col">Ação</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for tarefa in tarefas %}
+                    <tr>
 
-                    <td>
-                        {{ tarefa.titulo }}
-                    </td>
-
-                    {% if tarefa.status == 'À fazer' %}
-
-                        <td class="badge badge-primary">
-                            {{ tarefa.status }}
+                        <td class="text-truncate" style="max-width: 200px;">
+                            {{ tarefa.titulo }}
                         </td>
 
-                    {% elif tarefa.status == 'Andamento' %}
+                        {% if tarefa.status == 'À fazer' %}
+                            <td class="badge badge-primary">
+                                {{ tarefa.status }}
+                            </td>
+                        {% elif tarefa.status == 'Andamento' %}
+                            <td class="badge badge-info">
+                                {{ tarefa.status }}
+                            </td>
+                        {% elif tarefa.status == 'Pausado' %}
+                            <td class="badge badge-warning" style="color: white;">
+                                {{ tarefa.status }}
+                            </td>
+                        {% elif tarefa.status == 'Concluido' %}
+                            <td class="badge badge-success">
+                                {{ tarefa.status }}
+                            </td>
+                        {% endif %}
 
-                        <td class="badge badge-info">
-                            {{ tarefa.status }}
+                        <td style="text-align: center;">
+                            {{ tarefa.data_criacao }}
                         </td>
 
-                    {% elif tarefa.status == 'Pausado' %}
-
-                        <td  class="badge badge-warning" style="color: white;">
-                            {{ tarefa.status }}
+                        <td style="text-align: center;">
+                            {% include "partials/button/_button_detalhes.html" %}
+                            {% include "partials/button/_button_alterar.html" %}
                         </td>
-
-                    {% elif tarefa.status == 'Concluido' %}
-
-                        <td class="badge badge-success">
-                            {{ tarefa.status }}
-                        </td>
-
-                    {% endif %}
-
-                    <td style="text-align: center;">
-                        {{ tarefa.data_criacao }}
-                    </td>
-
-                    <td style="text-align: center;">
-
-                        {% include "partials/button/_button_detalhes.html" %}
-                        {% include "partials/button/_button_alterar.html" %}
-
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
         {% include "partials/modal/_modal_detalhes.html" %}
         {% include "partials/modal/_modal_alterar.html" %}
+        {% include "partials/paginate/_paginate.html" %}
 
     </div>
 
