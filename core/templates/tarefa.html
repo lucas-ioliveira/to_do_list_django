@@ -7,8 +7,12 @@
         <div class="col d-flex align-items-center">
             <h1 class="mr-auto">Tarefas</h1>
             <div>
-                <a class="btn btn-primary mr-2" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
-                <a class="btn btn-secondary" href="{% url 'tasks:index' %}">Logout</a>
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <a class="btn btn-primary mr-2" href="{% url 'tasks:add' %}">Adicionar uma tarefa</a>
+                    <button type="submit" class="btn btn-secondary">Logout</button>
+                </form>
+                
             </div>
         </div>
 
