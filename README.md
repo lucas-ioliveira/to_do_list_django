@@ -33,7 +33,7 @@ cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar
 
 - Página inicial simples com botões para direcionar o usuário para login/cadastro.
 
-![Rota index](docs/img/index.png)
+![Rota index](docs/img/tarefas-index.png)
 
 
 #### Rota para login (accounts/login);
@@ -41,7 +41,7 @@ cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar
 - Consta algumas validações, o formulário tem que estar preenchido
 e com os dados certos para a liberação do acesso.
 
-![Rota de login](docs/img/login.png)
+![Rota de login](docs/img/tarefas-login.png)
 
 
 #### Rota para cadastro de usuário (accounts/registro);
@@ -49,49 +49,49 @@ e com os dados certos para a liberação do acesso.
 - Consta algumas validações, o formulário tem que estar preenchido
 e com os dados certos para a liberação do acesso.
 
-![Rota de cadastro de usuário](docs/img/registro.png)
+![Rota de cadastro de usuário](docs/img/tarefas-cadastro-user.png)
 
 
 #### Rota para o dashboard (/tarefas);
 
  - Dashboard para visualizar as tarefas que precisam ser realizadas ou em outro status. Nessa tela o usuário pode realizar algumas ações.
 
-![Rota para o dashboard](docs/img/tarefas.png)
+![Rota para o dashboard](docs/img/tarefas-principal.png)
 
 
 #### Rota para cadastrar tarefas (/tarefas/add) ou editar (/tarefas/id/atualizar);
 
 - Realizar o cadastro ou editar a tarefa, pois usa o mesmo formulário.
 
-![Rota para cadastrar tarefa](docs/img/cad-tarefas.png)
+![Rota para cadastrar tarefa](docs/img/tarefas-cadastrar.png)
 
 
 #### Rota para visualizar as tarefas concluídas (tarefas/concluidas);
 
 - Visualizar tarefas concluidas.
 
-![Rota para o dashboard](docs/img/concluidas.png)
+![Rota para listar tarefas concluídas](docs/img/tarefas-concluido.png)
 
 
 #### Rota para visualizar as tarefas em andamento (tarefas/andamento);
 
 - Visualizar tarefas em andamento.
 
-![Rota para o dashboard](docs/img/andamento.png)
+![Rota para listar tarefas em andamento](docs/img/tarefas-andamento.png)
 
 
 #### Modal detalhes;
 
 - Ao clicar no botão detalhes sobe um modal com as informações da tarefa.
 
-![Modal detalhes](docs/img/modal-detalhes.png)
+![Modal detalhes](docs/img/tarefas-detalhes.png)
 
 
 #### Modal alterar;
 
 - Ao clicar no botão alterar sobe um modal com botões para realizar ações.
 
-![Modal detalhes](docs/img/modal-alterar.png)
+![Modal ações](docs/img/tarefas-acoes.png)
 
 
 
@@ -99,7 +99,7 @@ e com os dados certos para a liberação do acesso.
 
 - Realizar a exclusão da tarefa.
 
-![Rota para informações do contato individual](docs/img/deletar.png)
+![Rota para excluir tarefa](docs/img/tarefas-excluir.png)
 
 
 
