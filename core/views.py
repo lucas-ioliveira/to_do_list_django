@@ -17,6 +17,7 @@ from .models import ToDoList
 
 from .utils import get_tarefas_by_status
 
+from datetime import datetime
 
 # Home
 # Index
@@ -109,4 +110,15 @@ class DeletarTarefaView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
     def get_queryset(self):
         return ToDoList.objects.filter(usuario=self.request.user)
+
+
+class ClonarTarefaView(LoginRequiredMixin, RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        tarefa = get_object_or_404(ToDoList, pk=self.kwargs['pk'])
+        tarefa.pk = None  
+        tarefa.status = 'À fazer'  
+        tarefa.data_criacao = datetime.now().date()
+        tarefa.save()  
+        messages.success(self.request, 'Tarefa clonada com sucesso!')
+        return reverse_lazy('tasks:tarefas')
 
