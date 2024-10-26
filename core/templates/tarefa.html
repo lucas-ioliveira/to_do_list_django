@@ -36,8 +36,13 @@
                 </a>
 
                 <a class="btn btn-info mr-2" href="{% url 'tasks:tarefas_andamento' %}">
-                    Andamento
+                    Andamentos
                     <span class="badge badge-light">{{ tarefas_em_andamento }}</span>
+                </a>
+
+                <a style="color: white;" class="btn btn-warning mr-2" href="{% url 'tasks:tarefas_pausadas' %}">
+                    Pausados
+                    <span class="badge badge-light">{{ tarefas_pausadas }}</span>
                 </a>
             </div>
         </div>

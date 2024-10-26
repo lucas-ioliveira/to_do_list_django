@@ -72,6 +72,16 @@ class TarefasAndamentoView(LoginRequiredMixin, ListView):
         return get_tarefas_by_status(self.request.user, 'Andamento').order_by('-data_criacao')
 
 
+class TarefasPausadasView(LoginRequiredMixin, ListView):
+    model = ToDoList
+    template_name = 'tarefas_pausadas.html'
+    context_object_name = 'tarefas'
+    paginate_by = 6
+
+    def get_queryset(self):
+        return get_tarefas_by_status(self.request.user, 'Pausado').order_by('-data_criacao')
+
+
 # Concluir tarefa
 class TarefaConcluirView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
