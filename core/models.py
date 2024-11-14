@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Base(models.Model):
-    data_criacao = models.DateField(verbose_name='Data de criação', 
+    data_criacao = models.DateTimeField(verbose_name='Data de criação', 
                                     auto_now_add=True)
-    data_atualizacao = models.DateField(verbose_name='Data de atualização',
+    data_atualizacao = models.DateTimeField(verbose_name='Data de atualização',
                                         auto_now=True)
     ativo = models.BooleanField(verbose_name='Ativo?', default=True)
 
