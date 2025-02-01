@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+
+    <div class="container mt-5">
+    
+        <div class="row d-flex align-items-center">
+            <div class="col">
+                <h1 class="mr-auto">Espaço de trabalho</h1>
+            </div>
+            <div class="col-auto">
+
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+
+                    {% include "partials/button/_button_add_espaco_trabalho.html" %}
+
+                    <button type="submit" class="btn btn-secondary">
+                        Logout
+                        <i class="fa-solid fa-right-from-bracket" style="margin-left: 5px;"></i>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+        <br>
+        
+        {% bootstrap_messages %}
+
+        {% if work_space %}
+                <div class="row mt-5">
+                    {% for work in work_space %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-4">{{ work.titulo }}</h5>
+
+                                    <form method="POST" action="{% url 'tasks:tarefas-list' work.id %}">
+                                        {% csrf_token %}
+
+                                        <button type="submit" class="btn btn-primary">
+                                            Visualizar tarefas
+                                            <i class="fa-solid fa-eye" style="margin-left: 5px;"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+        {% else %}
+            <div class="card mt-5">
+                <div class="card-header">
+                    Informação!
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Ainda sem espaço de trabalho?!</h5>
+                    <p class="card-text">Crie um espaço de trabalho para adicionar e gerenciar suas tarefas.</p> 
+                    
+                    {% include "partials/button/_button_add_espaco_trabalho.html" %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% include "partials/paginate/_paginate.html" %}
+        
+    </div>
+
+    {% include "partials/modal/_modal_add_espaco_trabalho.html" %}
+
+{% endblock content %}

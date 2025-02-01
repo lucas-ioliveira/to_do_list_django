@@ -1,0 +1,62 @@
+ <!-- Modal Detalhes-->
+ <div class="modal fade" id="modalCriarTarefa" tabindex="-1" role="dialog" aria-labelledby="arialModalCriarTarefa" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="h5CriarTarefaTitle">Criar Tarefa</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div id="divCriarTarefaBody" class="modal-body">
+
+                <form method="post" action="{% url 'tasks:tarefas-cadastrar' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_titulo">Título:</label>
+                        <input type="text" class="form-control" id="id_titulo" name="titulo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_titulo">Descrição:</label>
+                        <textarea type="text" class="form-control" id="descricao" name="descricao" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_titulo">Status:</label>
+                        <select class="form-control" id="status" name="status" required>
+                            <option value="">Selecione</option>
+                            {% for i in status %}
+                                <option value="{{ i.1}}">{{ i.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_titulo">Espaço de trabalho:</label>
+                        <input type="text" class="form-control" id="descricao" name="espaco_trabalho" value="{{ work_space_name }}" readonly>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function modalCadasTarefa() {
+
+        const modalElement = document.getElementById('modalCriarTarefa');
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+
+</script>

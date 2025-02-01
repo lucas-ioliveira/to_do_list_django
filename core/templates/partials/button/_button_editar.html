@@ -1,0 +1,9 @@
+<button type="button" class="btn btn-secondary" 
+    onclick="modalDetalhes(
+        '{{ tarefa.titulo|escapejs }}', 
+        '{{ tarefa.status|escapejs }}', 
+        '{{ tarefa.descricao|escapejs }}', 
+        '{{ tarefa.data_criacao|escapejs }}', 
+        '{{ tarefa.data_atualizacao|escapejs }}')">
+        Detalhes
+</button>

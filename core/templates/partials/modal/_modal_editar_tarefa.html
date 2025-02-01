@@ -1,0 +1,71 @@
+ <!-- Modal Detalhes-->
+ <div class="modal fade" id="modalEditarTarefa" tabindex="-1" role="dialog" aria-labelledby="arialModalEditarTarefa" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="h5EditarTarefaTitle">Editar Tarefa</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div id="divEditarTarefaBody" class="modal-body">
+
+                <form method="POST"  id="formEditarTarefa" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="tituloEditarLabel">Título:</label>
+                        <input type="text" class="form-control" id="tituloEditar" name="titulo" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição:</label>
+                        <textarea type="text" class="form-control" id="descricaoEditar" name="descricao" value=""></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status:</label>
+                        <select class="form-control" id="statusEditar" name="status" >
+                            <option value="">Selecione</option>
+                            <option value="Concluido">Concluído</option>
+                            <option value="À fazer">À fazer</option>
+                            <option value="Andamento">Andamento</option>
+                            <option value="Pausado">Pausado</option>
+
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function modalEditarTarefa(tarefaId, titulo, descricao, status) {
+        console.log(tarefaId, titulo, descricao, status);
+        const formEditarTarefa = document.getElementById('formEditarTarefa');
+        //formEditarTarefa.action = 
+
+        const tituloInput = document.getElementById('tituloEditar');
+        tituloInput.value = titulo;
+
+        const descricaoInput = document.getElementById('descricaoEditar');
+        descricaoInput.value = descricao;
+
+        const statusInput = document.getElementById('statusEditar');
+        statusInput.value = status;
+
+        const modalElement = document.getElementById('modalEditarTarefa');
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+
+</script>

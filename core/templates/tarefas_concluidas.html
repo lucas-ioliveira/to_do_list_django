@@ -8,7 +8,10 @@
         <h1 class="mr-auto">Tarefas concluídas</h1>
 
         <div>
-            {% include "partials/links/_link_button_voltar.html" %}
+            <a class="btn btn-secondary ml-2 mr-2" href="{% url 'tasks:work-space' %}">
+                voltar
+                <i class="fa-solid fa-rotate-left" style="margin-left: 10px;"></i>
+            </a>
         </div>
 
     </div>
@@ -34,7 +37,7 @@
                     <td>{{ tarefa.data_atualizacao}}</td>
                     <td>
                         {% include "partials/button/_button_detalhes.html" %}
-                        {% include "partials/button/_button_alterar.html" %}
+                        {% comment %} {% include "partials/button/_button_alterar.html" %} {% endcomment %}
                     </td>
                 </tr>
                 {% endfor %}

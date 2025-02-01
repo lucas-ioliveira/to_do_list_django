@@ -1,0 +1,8 @@
+
+    <form method="POST"  class="d-inline-flex" action="{% url 'tasks:tarefa_deletar' tarefa.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="work_space" value="{{ work_space_id}}">
+        <button type="submit" class="btn btn-danger mr-2">
+        <i class="fa-solid fa-trash"></i>
+    </form>
+
