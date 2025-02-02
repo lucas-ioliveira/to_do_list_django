@@ -78,28 +78,28 @@ e com os dados certos para a liberação do acesso.
 
  - Dashboard para visualizar as tarefas que precisam ser realizadas ou em outro status. Nessa tela o usuário pode realizar algumas ações.
 
-![Rota para o dashboard](docs/img/tarefas-principal.png)
+![Rota para o dashboard](docs/img/tarefas-principal-atualizado.png)
 
 
 #### Rota para cadastrar tarefas (/tarefas/cadastrar) ou editar (/tarefas/atualizar/id/);
 
 - Realizar o cadastro ou editar a tarefa, pois usa o mesmo formulário.
 
-![Rota para cadastrar tarefa](docs/img/tarefas-cadastrar.png)
+![Rota para cadastrar tarefa](docs/img/tarefas-cadastrar-atualizado.png)
 
 
 #### Rota para visualizar as tarefas concluídas (tarefas/concluidas);
 
 - Visualizar tarefas concluidas.
 
-![Rota para listar tarefas concluídas](docs/img/tarefas-concluido.png)
+![Rota para listar tarefas concluídas](docs/img/tarefas-concluido-atualizado.png)
 
 
 #### Rota para visualizar as tarefas em andamento (tarefas/andamento);
 
 - Visualizar tarefas em andamento.
 
-![Rota para listar tarefas em andamento](docs/img/tarefas-andamento.png)
+![Rota para listar tarefas em andamento](docs/img/tarefas-andamento-atualizado.png)
 
 
 #### Modal detalhes;
