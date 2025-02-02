@@ -6,104 +6,141 @@
     <div class="container mt-5">
     
         <div class="row d-flex align-items-center">
+
             <div class="col">
                 <h1 class="mr-auto">Tarefas</h1>
             </div>
-            <div class="col-auto">
+
+            <div class="row">
+
+                {% include 'partials/button/_button_add_tarefa.html' %}
+
+                <a class="btn btn-secondary ml-2 mr-2" href="{% url 'tasks:work-space' %}">
+                    voltar
+                    <i class="fa-solid fa-rotate-left" style="margin-left: 10px;"></i>
+                </a>
+
                 <form method="POST" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <a class="btn btn-primary mr-2" href="{% url 'tasks:tarefa_add' %}">
-                        Adicionar uma tarefa
-                        <span style="margin-left: 5px;">
-                            <img src="{% static 'core/images/mais.png' %}" alt="Logout" style="width: 20px; height: 20px; margin-right: 5px;">
-                        </span>
-                    </a>
+                    
                     <button type="submit" class="btn btn-secondary">
                         Logout
-                        <span style="margin-left: 5px;">
-                            <img src="{% static 'core/images/sair-do-usuario-2.png' %}" alt="Logout" style="width: 20px; height: 20px; margin-right: 5px;">
-                        </span>
+                        <i class="fa-solid fa-right-from-bracket" style="margin-left: 5px;"></i>
                     </button>
                 </form>
+                
             </div>
         </div>
 
-        <div class="row d-flex align-items-center mt-3">
-            <div class="col">
-                <a class="btn btn-success mr-2" href="{% url 'tasks:tarefas_concluidas' %}">
-                    Concluídas
-                    <span class="badge badge-light">{{ tarefas_concluidas }}</span>
-                </a>
+        
 
-                <a class="btn btn-info mr-2" href="{% url 'tasks:tarefas_andamento' %}">
-                    Andamentos
-                    <span class="badge badge-light">{{ tarefas_em_andamento }}</span>
-                </a>
+            <div class="row d-flex align-items-center mt-3">
+                <div class="row ml-3">
+                    
+                    <form method="POST" action="{% url 'tasks:tarefas-concluidas' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="work_space" value="{{ work_space_id}}">
+                        <button type="submit" class="btn btn-success mr-2">Concluídas
+                            <span class="badge badge-light">{{ tarefas_concluidas }}</span>
+                    </form>
 
-                <a style="color: white;" class="btn btn-warning mr-2" href="{% url 'tasks:tarefas_pausadas' %}">
-                    Pausados
-                    <span class="badge badge-light">{{ tarefas_pausadas }}</span>
-                </a>
+                    <form method="POST" action="{% url 'tasks:tarefas_andamento' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="work_space" value="{{ work_space_id}}">
+                        <button type="submit" class="btn btn-info mr-2">Andamentos
+                            <span class="badge badge-light">{{ tarefas_em_andamento }}</span>
+                    </form>
+
+                    <form method="POST" action="{% url 'tasks:tarefas_pausadas' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="work_space" value="{{ work_space_id}}">
+                        <button type="submit" class="btn btn-warning mr-2" style="color: white;">Pausados
+                            <span class="badge badge-light">{{ tarefas_pausadas}}</span>
+                    </form>
+                </div>
             </div>
-        </div>
 
         <br>
         
         {% bootstrap_messages %}
 
-        <div class="table-responsive">
-            <table class="table table-striped mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">Título</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Data de Criação</th>
-                        <th scope="col">Ação</th>
-                    </tr>
-                </thead>
+        {% if tarefas %}
+
+            <div class="table-responsive">
+                <table class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Título</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Data de Criação</th>
+                            <th scope="col">Ação</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for tarefa in tarefas %}
+                        <tr>
+
+                            <td class="text-truncate" style="max-width: 200px;">
+                                {{ tarefa.titulo }}
+                            </td>
+
+                            {% if tarefa.status == 'À fazer' %}
+                                <td class="badge badge-primary">
+                                    {{ tarefa.status }}
+                                </td>
+                            {% elif tarefa.status == 'Andamento' %}
+                                <td class="badge badge-info">
+                                    {{ tarefa.status }}
+                                </td>
+                            {% elif tarefa.status == 'Pausado' %}
+                                <td class="badge badge-warning" style="color: white;">
+                                    {{ tarefa.status }}
+                                </td>
+                            {% elif tarefa.status == 'Concluido' %}
+                                <td class="badge badge-success">
+                                    {{ tarefa.status }}
+                                </td>
+                            {% endif %}
+
+                            <td style="text-align: center;">
+                                {{ tarefa.data_criacao }}
+                            </td>
+
+                            <td style="text-align: center;">
+                                <div class="d-flex gap-2 justify-content-center align-items-center flex-wrap">
+                                    {% include "partials/button/_button_detalhes.html" %}
+                                    {% include "partials/button/_button_concluir_tarefa.html" %}
+                                    {% include "partials/button/_button_editar_tarefa.html" %}
+                                    {% include "partials/button/_button_clonar_tarefa.html" %}
+                                    {% include "partials/button/_button_deletar_tarefa.html" %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+
+        <div class="card mt-5">
+            <div class="card-header">
+                Informação!
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ainda sem tarefas?!</h5>
+                <p class="card-text">Crie uma nova tarefa clicando no botão abaixo</p> 
                 
-                <tbody>
-                    {% for tarefa in tarefas %}
-                    <tr>
-
-                        <td class="text-truncate" style="max-width: 200px;">
-                            {{ tarefa.titulo }}
-                        </td>
-
-                        {% if tarefa.status == 'À fazer' %}
-                            <td class="badge badge-primary">
-                                {{ tarefa.status }}
-                            </td>
-                        {% elif tarefa.status == 'Andamento' %}
-                            <td class="badge badge-info">
-                                {{ tarefa.status }}
-                            </td>
-                        {% elif tarefa.status == 'Pausado' %}
-                            <td class="badge badge-warning" style="color: white;">
-                                {{ tarefa.status }}
-                            </td>
-                        {% elif tarefa.status == 'Concluido' %}
-                            <td class="badge badge-success">
-                                {{ tarefa.status }}
-                            </td>
-                        {% endif %}
-
-                        <td style="text-align: center;">
-                            {{ tarefa.data_criacao }}
-                        </td>
-
-                        <td style="text-align: center;">
-                            {% include "partials/button/_button_detalhes.html" %}
-                            {% include "partials/button/_button_alterar.html" %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                {% include 'partials/button/_button_add_tarefa.html' %}
+            </div>
         </div>
 
+        {% endif %}
+
+        {% include "partials/modal/_modal_cadastrar_tarefa.html" %}
         {% include "partials/modal/_modal_detalhes.html" %}
-        {% include "partials/modal/_modal_alterar.html" %}
+        {% include "partials/modal/_modal_editar_tarefa.html" %}
         {% include "partials/paginate/_paginate.html" %}
 
     </div>

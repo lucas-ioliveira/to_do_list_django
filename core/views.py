@@ -1,137 +1,137 @@
-# Para menssagens do django
-from django.contrib.messages.views import SuccessMessageMixin
-# Para as funcionalidades do sistema
-from django.views.generic import TemplateView, ListView, RedirectView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-# Para redirecionar o usuario
-from django.urls import reverse_lazy
-# Para autenticação e registro do usuário
-# Para o usuário acessar a página somente se estiver logado
-from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
-
-# model de usuário e das funções do sistema
-from .models import ToDoList
-
-from .utils import get_tarefas_by_status
-
+from django.contrib.auth.decorators import login_required
 from datetime import datetime
+
+from .models import ToDoList, WorkSpace
+from .utils import get_tarefas_by_status
 
 # Home
 # Index
 class IndexView(TemplateView):
     template_name = 'index.html'
 
+@login_required
+def work_space_view(request):
+    work_space = WorkSpace.objects.filter(usuario=request.user).order_by('data_criacao')
+    context = {
+        'work_space': work_space
+    }
+    return render(request, 'work_space.html', context)
 
-# Funcionalidades do sistema
-# Listar
+@login_required
+def create_work_space_view(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        work_space = WorkSpace.objects.create(titulo=titulo, usuario=request.user)
+        work_space.save()
+        return redirect('tasks:work-space')
+    return render(request, 'work_space.html')
 
-class TarefasView(LoginRequiredMixin, ListView):
-    model = ToDoList
-    template_name = 'tarefa.html'
-    context_object_name = 'tarefas'
-    paginate_by = 6
-
-    def get_queryset(self):
-        return ToDoList.objects.filter(usuario=self.request.user, status='À fazer').order_by('-data_criacao')
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+@login_required
+def tarefas_list_view(request, work_space):
+    if request.method == 'POST':
         
-        usuario = self.request.user
-        context['total_tarefas'] = ToDoList.objects.filter(usuario=usuario).count()
-        context['tarefas_concluidas'] = ToDoList.objects.filter(usuario=usuario, status='Concluido').count()
-        context['tarefas_em_andamento'] = ToDoList.objects.filter(usuario=usuario, status='Andamento').count()
-        context['tarefas_a_fazer'] = ToDoList.objects.filter(usuario=usuario, status='À fazer').count()
-        context['tarefas_pausadas'] = ToDoList.objects.filter(usuario=usuario, status='Pausado').count()
+        work_space_id = WorkSpace.objects.get(id=work_space)
+        work_space_name = work_space_id.titulo
+        status = ToDoList.STATUS_CHOICES
+        tarefas = get_tarefas_by_status(request.user, 'À fazer', work_space=work_space).order_by('-data_criacao')
+        context = {
+            'tarefas': tarefas,
+            'status': status,
+            'work_space_name': work_space_name,
+            'work_space_id': work_space,
+            'tarefas_concluidas': get_tarefas_by_status(request.user, 'Concluido', work_space=work_space).count(),
+            'tarefas_em_andamento': get_tarefas_by_status(request.user, 'Andamento', work_space=work_space).count(),
+            'tarefas_a_fazer': get_tarefas_by_status(request.user, 'À fazer', work_space=work_space).count(),
+            'tarefas_pausadas': get_tarefas_by_status(request.user, 'Pausado', work_space=work_space).count(),
+        }
 
-        return context
+        return render(request, 'tarefa.html', context)
+    return render(request, 'tarefa.html')
+
+@login_required
+def tarefas_cadastrar_view(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        descricao = request.POST.get('descricao')
+        status = request.POST.get('status')
+        work_space_nome = request.POST.get('espaco_trabalho')
+        work_space_id = WorkSpace.objects.filter(titulo=work_space_nome).first()
+
+        tarefa = ToDoList.objects.create(titulo=titulo, descricao=descricao, status=status, 
+                                         work_space=work_space_id, 
+                                         usuario=request.user)
+        tarefa.save()
+        messages.success(request, 'Tarefa criada com sucesso!')
+        return redirect('tasks:work-space')
+    return render(request, 'tarefa.html')
+
+@login_required
+def tarefas_concluidas_view(request):
+    if request.method == 'POST':
+        tarefas = get_tarefas_by_status(request.user, 'Concluido', work_space=request.POST.get('work_space')).order_by('-data_criacao')
+        return render(request, 'tarefas_concluidas.html', {'tarefas': tarefas})
+    return render(request, 'tarefa.html')
+
+@login_required
+def tarefas_andamento_view(request):
+    if request.method == 'POST':
+        tarefas = get_tarefas_by_status(request.user, 'Andamento', work_space=request.POST.get('work_space')).order_by('-data_criacao')
+        return render(request, 'tarefas_andamento.html', {'tarefas': tarefas})
+    return render(request, 'tarefa.html')
+
+@login_required
+def tarefas_pausadas_view(request):
+    if request.method == 'POST':
+        tarefas = get_tarefas_by_status(request.user, 'Pausado', work_space=request.POST.get('work_space')).order_by('-data_criacao')
+        return render(request, 'tarefas_pausadas.html', {'tarefas': tarefas})
+    return render(request, 'tarefa.html')
     
-
-# Listar tarefas concluidas
-class TarefasConcluidasView(LoginRequiredMixin, ListView):
-    model = ToDoList
-    template_name = 'tarefas_concluidas.html'
-    context_object_name = 'tarefas'
-    paginate_by = 6
-
-    def get_queryset(self):
-        return get_tarefas_by_status(self.request.user, 'Concluido').order_by('-data_criacao')
-
-
-# Listar tarefas andamento
-class TarefasAndamentoView(LoginRequiredMixin, ListView):
-    model = ToDoList
-    template_name = 'tarefas_andamento.html'
-    context_object_name = 'tarefas'
-    paginate_by = 6
-
-    def get_queryset(self):
-        return get_tarefas_by_status(self.request.user, 'Andamento').order_by('-data_criacao')
-
-
-class TarefasPausadasView(LoginRequiredMixin, ListView):
-    model = ToDoList
-    template_name = 'tarefas_pausadas.html'
-    context_object_name = 'tarefas'
-    paginate_by = 6
-
-    def get_queryset(self):
-        return get_tarefas_by_status(self.request.user, 'Pausado').order_by('-data_criacao')
-
-
-# Concluir tarefa
-class TarefaConcluirView(LoginRequiredMixin, RedirectView):
-    def get_redirect_url(self, *args, **kwargs):
-        tarefa = get_object_or_404(ToDoList, pk=self.kwargs['pk'])
+@login_required
+def tarefas_concluir_view(request, pk):
+    if request.method == 'POST':
+        tarefa = get_object_or_404(ToDoList, pk=pk)
         tarefa.status = 'Concluido' 
         tarefa.save()
-        messages.success(self.request, 'Tarefa concluída com sucesso!')
-        return reverse_lazy('tasks:tarefas')
-        
+        messages.success(request, 'Tarefa concluida com sucesso!')
+        return redirect('tasks:work-space')
+    return render(request, 'tarefa.html')
+@login_required
+def tarefas_editar_view(request, pk):
+    if request.method == 'POST':
+        tarefa = get_object_or_404(ToDoList, pk=pk)
+        tarefa.titulo = request.POST.get('titulo')
+        tarefa.descricao = request.POST.get('descricao')
+        tarefa.status = request.POST.get('status')
+        tarefa.save()
+        messages.success(request, 'Tarefa editada com sucesso!')
+        return redirect('tasks:work-space')
+    return render(request, 'tarefa.html')
 
-# Cadastrar tarefa
-class CadastrarTarefaView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = ToDoList
-    template_name = 'cadastrar_tarefa.html'  
-    fields = ['titulo', 'descricao', 'status']  
-    success_url = reverse_lazy('tasks:tarefas')  
-
-    def form_valid(self, form):
-        form.instance.usuario = self.request.user  
-        return super().form_valid(form)
-
-
-# Atualizar
-class AtualizarTarefaView(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
-    model = ToDoList
-    template_name = 'cadastrar_tarefa.html'
-    fields = ['titulo', 'descricao', 'status',]
-    success_url = reverse_lazy('tasks:tarefas')
-    success_message = "A tarefa foi atualizada com sucesso!"
-
-
-
-# Deletar
-class DeletarTarefaView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = ToDoList
-    template_name = 'tarefa_del.html'
-    success_url = reverse_lazy('tasks:tarefas')
-    success_message = "A tarefa foi deletada com sucesso!"
-
-    def get_queryset(self):
-        return ToDoList.objects.filter(usuario=self.request.user)
-
-
-class ClonarTarefaView(LoginRequiredMixin, RedirectView):
-    def get_redirect_url(self, *args, **kwargs):
-        tarefa = get_object_or_404(ToDoList, pk=self.kwargs['pk'])
+@login_required
+def tarefas_clonar_view(request, pk):
+    if request.method == 'POST':
+        tarefa = get_object_or_404(ToDoList, pk=pk)
         tarefa.pk = None  
         tarefa.status = 'À fazer'  
         tarefa.data_criacao = datetime.now().date()
         tarefa.save()  
-        messages.success(self.request, 'Tarefa clonada com sucesso!')
-        return reverse_lazy('tasks:tarefas')
+        messages.success(request, 'Tarefa clonada com sucesso!')
+        return redirect('tasks:work-space')
+    return render(request, 'tarefa.html')
+
+@login_required
+def tarefas_deletar_view(request, pk):
+    if request.method == 'POST':
+        import ipdb; ipdb.set_trace()
+        tarefa = get_object_or_404(ToDoList, pk=pk)
+        tarefa.ativo = False
+        tarefa.save()
+        messages.success(request, 'Tarefa deletada com sucesso!')
+        return redirect('tasks:work-space')
+    return render(request, 'tarefa.html')
+
 

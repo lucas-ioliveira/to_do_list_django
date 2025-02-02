@@ -1,0 +1,7 @@
+
+    <form method="POST" id="formClonar" class="d-inline-flex" action="{% url 'tasks:tarefa_clonar' tarefa.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="work_space" value="{{ work_space_id}}">
+        <button type="submit" class="btn btn-info mr-2">
+        <i class="fa-solid fa-copy"></i>
+    </form>

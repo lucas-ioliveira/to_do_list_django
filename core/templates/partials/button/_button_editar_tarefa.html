@@ -1,0 +1,9 @@
+<button type="button" class="btn btn-warning mr-2" style="color: white" 
+    onclick="modalEditarTarefa(
+        '{{ tarefa.id }}',
+        '{{ tarefa.titulo|escapejs }}', 
+        '{{ tarefa.descricao|escapejs }}', 
+        '{{ tarefa.status|escapejs }}',  
+        )">
+        <i class="fa-solid fa-pen"></i>
+</button>

@@ -2,10 +2,9 @@
 
 Nesse repositório contém um projeto fullstack realizado o front-end com Html, Css, BootStrap 4 e o back-end com Python e o framework Django.
 
-Desenvolvi esse projeto com o intuito de aplicar conhecimentos sobre class based views do Django.
-
-O projeto consiste em um sistema (CRUD) to-do list, onde o usuário do sistema consegue realizar login no sistema,
-cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar todos as tarefas concluidas em uma tela onde as tarefas são apresentadas em uma tabela.
+O projeto consiste em um sistema to-do list, onde o usuário do sistema consegue realizar login no sistema,
+cadastrar-se como novo usuário, cadastrar espaço de trabalho, cadastrar tarefas, editar, deletar e visualizar todos as tarefas concluidas, em andamento e pausadas em uma tela 
+onde as tarefas são apresentadas em uma tabela. As tarefas são organizas em um espaço de trabalho, onde o usuário pode criar quantos quiser e separar suas tatarefas como por exemplo: Tarefas do dia a dia, faculdade e etc. 
 
 ### Pré-requisitos
 
@@ -18,8 +17,6 @@ cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar
 (No diretório do projeto rodar o comando: docker compose -f docker-compose.yml up -d --build);
 - OBS²: Caso opte por rodar o projeto sem usar o docker, é necessário remover algumas configurações de variáveis de ambiente existente no settings.py e deixar padrão;
 
-
-
 ### Execução do sistema
 
 - Basta entrar no diretório do projeto e no terminal rodar o comando: python manage.py runserver ou docker compose -f docker-compose.yml up -d --build;
@@ -29,7 +26,7 @@ cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar
 
 - Obs: As páginas são acessíveis somente com o usuário autenticado, obviamente, login e cadastro são de livre acesso.
 
-#### Rota para a página inicial (localhost);
+#### Rota para a página inicial;
 
 - Página inicial simples com botões para direcionar o usuário para login/cadastro.
 
@@ -51,6 +48,31 @@ e com os dados certos para a liberação do acesso.
 
 ![Rota de cadastro de usuário](docs/img/tarefas-cadastro-user.png)
 
+#### Rota para  espaço de trabalho (/tarefas/espaco-trabalho/);
+
+ - Quando realizado o primeiro login no sistema, aparece o card informativo para criar um espaço de trabalho onde as tarefas ficarão organizadas.
+
+![Rota para o dashboard](docs/img/sem_espaco.png)
+
+#### Rota para o cadastrar um espaço de trabalho (/tarefas/espaco-trabalho/cadastrar/);
+
+ - Para criar uma tarefa é necessário criar um espaço de trabalho antes para que as tarefas fiquem organizadas
+ por "módulos".
+
+![Rota para o dashboard](docs/img/criar_espaco.png)
+
+#### Rota para o espaço de trabalho (/tarefas/espaco-trabalho/);
+
+ - Dashboard para visualizar espaços de trabalhos cadastrados, a partir dele as tarefas são criadas e organizadas em cada espaço.
+
+![Rota para o dashboard](docs/img/espaco_trabalho.png)
+
+#### Rota para o dashboard (/tarefas);
+
+ - Caso não tenha nenhuma  tarefa cadastrada é mostrado um card informativo.
+
+![Card informativo](docs/img/sem_tarefas.png)
+
 
 #### Rota para o dashboard (/tarefas);
 
@@ -59,7 +81,7 @@ e com os dados certos para a liberação do acesso.
 ![Rota para o dashboard](docs/img/tarefas-principal.png)
 
 
-#### Rota para cadastrar tarefas (/tarefas/add) ou editar (/tarefas/id/atualizar);
+#### Rota para cadastrar tarefas (/tarefas/cadastrar) ou editar (/tarefas/atualizar/id/);
 
 - Realizar o cadastro ou editar a tarefa, pois usa o mesmo formulário.
 
@@ -87,19 +109,6 @@ e com os dados certos para a liberação do acesso.
 ![Modal detalhes](docs/img/tarefas-detalhes.png)
 
 
-#### Modal alterar;
-
-- Ao clicar no botão alterar sobe um modal com botões para realizar ações.
-
-![Modal ações](docs/img/tarefas-acoes.png)
-
-
-
-#### Rota para excluir uma tarefas (/tarefas/id/deletar);
-
-- Realizar a exclusão da tarefa.
-
-![Rota para excluir tarefa](docs/img/tarefas-excluir.png)
 
 
 

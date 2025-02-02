@@ -12,6 +12,18 @@ class Base(models.Model):
     class Meta:
         abstract = True
 
+class WorkSpace(Base):
+    usuario = models.ForeignKey(User, verbose_name='usuario', on_delete=models.CASCADE)
+    titulo = models.CharField(verbose_name='Titulo', max_length=255)
+
+    class Meta:
+        verbose_name = 'Espaço de trabalho'
+        verbose_name_plural = 'Espaços de trabalhos'
+    
+    def __str__(self):
+        return f"{self.titulo}"
+
+
 class ToDoList(Base):
     STATUS_CHOICES = (
         ('Concluido', 'Concluido'),
@@ -24,10 +36,12 @@ class ToDoList(Base):
     descricao = models.TextField(verbose_name='Descrição')
     status = models.CharField(verbose_name='Status', max_length=15, 
                               choices=STATUS_CHOICES)
+    work_space = models.ForeignKey(WorkSpace, verbose_name='Espaço de trabalho', 
+                                   on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Lista de Tarefa'
-        verbose_name_plural = 'Lista de Tarefas'    
+        verbose_name_plural = 'Listas de Tarefas'    
     
     def __str__(self):
         return f"{self.titulo}"

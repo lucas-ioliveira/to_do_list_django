@@ -34,8 +34,13 @@
                     <td>{{ tarefa.data_criacao }}</td>
                     <td>{{ tarefa.data_atualizacao}}</td>
                     <td>
-                        {% include "partials/button/_button_detalhes.html" %}
-                        {% include "partials/button/_button_alterar.html" %}
+                        <div class="d-flex gap-2 justify-content-center align-items-center flex-wrap">
+                            {% include "partials/button/_button_detalhes.html" %}
+                            {% include "partials/button/_button_concluir_tarefa.html" %}
+                            {% include "partials/button/_button_editar_tarefa.html" %}
+                            {% include "partials/button/_button_clonar_tarefa.html" %}
+                            {% include "partials/button/_button_deletar_tarefa.html" %}
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
@@ -44,7 +49,7 @@
     </div>
 
     {% include "partials/modal/_modal_detalhes.html" %}
-    {% include "partials/modal/_modal_alterar.html" %}
+    {% include "partials/modal/_modal_editar_tarefa.html" %}
     {% include "partials/paginate/_paginate.html" %}
 
 </div>
