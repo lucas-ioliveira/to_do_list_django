@@ -129,7 +129,7 @@ STATICFILES_DIRS = [
 ]
 
 # Login/logout
-LOGIN_REDIRECT_URL = 'tasks:tarefas'
+LOGIN_REDIRECT_URL = 'tasks:work-space'
 
 
 # Default primary key field type
