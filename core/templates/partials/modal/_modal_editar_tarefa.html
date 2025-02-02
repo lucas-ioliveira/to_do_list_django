@@ -52,7 +52,7 @@
     function modalEditarTarefa(tarefaId, titulo, descricao, status) {
         console.log(tarefaId, titulo, descricao, status);
         const formEditarTarefa = document.getElementById('formEditarTarefa');
-        //formEditarTarefa.action = 
+        formEditarTarefa.action = `/tarefas/editar/${tarefaId}/`
 
         const tituloInput = document.getElementById('tituloEditar');
         tituloInput.value = titulo;
