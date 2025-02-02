@@ -37,16 +37,16 @@ def tarefas_list_view(request, work_space):
         work_space_id = WorkSpace.objects.get(id=work_space)
         work_space_name = work_space_id.titulo
         status = ToDoList.STATUS_CHOICES
-        tarefas = ToDoList.objects.filter(usuario=request.user, status='À fazer', work_space__id=work_space).order_by('-data_criacao')
+        tarefas = get_tarefas_by_status(request.user, 'À fazer', work_space=work_space).order_by('-data_criacao')
         context = {
             'tarefas': tarefas,
             'status': status,
             'work_space_name': work_space_name,
             'work_space_id': work_space,
-            'tarefas_concluidas': ToDoList.objects.filter(usuario=request.user, status='Concluido', work_space__id=work_space).count(),
-            'tarefas_em_andamento': ToDoList.objects.filter(usuario=request.user, status='Andamento', work_space__id=work_space).count(),
-            'tarefas_a_fazer': ToDoList.objects.filter(usuario=request.user, status='À fazer', work_space__id=work_space).count(),
-            'tarefas_pausadas': ToDoList.objects.filter(usuario=request.user, status='Pausado', work_space__id=work_space).count(),
+            'tarefas_concluidas': get_tarefas_by_status(request.user, 'Concluido', work_space=work_space).count(),
+            'tarefas_em_andamento': get_tarefas_by_status(request.user, 'Andamento', work_space=work_space).count(),
+            'tarefas_a_fazer': get_tarefas_by_status(request.user, 'À fazer', work_space=work_space).count(),
+            'tarefas_pausadas': get_tarefas_by_status(request.user, 'Pausado', work_space=work_space).count(),
         }
 
         return render(request, 'tarefa.html', context)
@@ -55,7 +55,6 @@ def tarefas_list_view(request, work_space):
 @login_required
 def tarefas_cadastrar_view(request):
     if request.method == 'POST':
-        # import  ipdb; ipdb.set_trace()
         titulo = request.POST.get('titulo')
         descricao = request.POST.get('descricao')
         status = request.POST.get('status')
@@ -127,6 +126,7 @@ def tarefas_clonar_view(request, pk):
 @login_required
 def tarefas_deletar_view(request, pk):
     if request.method == 'POST':
+        import ipdb; ipdb.set_trace()
         tarefa = get_object_or_404(ToDoList, pk=pk)
         tarefa.ativo = False
         tarefa.save()
