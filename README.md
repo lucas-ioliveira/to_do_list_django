@@ -51,6 +51,31 @@ e com os dados certos para a liberação do acesso.
 
 ![Rota de cadastro de usuário](docs/img/tarefas-cadastro-user.png)
 
+#### Rota para  espaço de trabalho (/tarefas/espaco-trabalho/);
+
+ - Quando realizado o primeiro login no sistema, aparece o card informativo para criar um espaço de trabalho onde as tarefas ficarão organizadas.
+
+![Rota para o dashboard](docs/img/sem_espaco.png)
+
+#### Rota para o cadastrar um espaço de trabalho (/tarefas/espaco-trabalho/cadastrar/);
+
+ - Para criar uma tarefa é necessário criar um espaço de trabalho antes para que as tarefas fiquem organizadas
+ por "módulos".
+
+![Rota para o dashboard](docs/img/criar_espaco.png)
+
+#### Rota para o espaço de trabalho (/tarefas/espaco-trabalho/);
+
+ - Dashboard para visualizar espaços de trabalhos cadastrados, a partir dele as tarefas são criadas e organizadas em cada espaço.
+
+![Rota para o dashboard](docs/img/espaco_trabalho.png)
+
+#### Rota para o dashboard (/tarefas);
+
+ - Caso não tenha nenhuma  tarefa cadastrada é mostrado um card informativo.
+
+![Card informativo](docs/img/sem_tarefas.png)
+
 
 #### Rota para o dashboard (/tarefas);
 
@@ -59,7 +84,7 @@ e com os dados certos para a liberação do acesso.
 ![Rota para o dashboard](docs/img/tarefas-principal.png)
 
 
-#### Rota para cadastrar tarefas (/tarefas/add) ou editar (/tarefas/id/atualizar);
+#### Rota para cadastrar tarefas (/tarefas/cadastrar) ou editar (/tarefas/atualizar/id/);
 
 - Realizar o cadastro ou editar a tarefa, pois usa o mesmo formulário.
 
@@ -87,19 +112,6 @@ e com os dados certos para a liberação do acesso.
 ![Modal detalhes](docs/img/tarefas-detalhes.png)
 
 
-#### Modal alterar;
-
-- Ao clicar no botão alterar sobe um modal com botões para realizar ações.
-
-![Modal ações](docs/img/tarefas-acoes.png)
-
-
-
-#### Rota para excluir uma tarefas (/tarefas/id/deletar);
-
-- Realizar a exclusão da tarefa.
-
-![Rota para excluir tarefa](docs/img/tarefas-excluir.png)
 
 
 
