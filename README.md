@@ -2,10 +2,9 @@
 
 Nesse repositório contém um projeto fullstack realizado o front-end com Html, Css, BootStrap 4 e o back-end com Python e o framework Django.
 
-Desenvolvi esse projeto com o intuito de aplicar conhecimentos sobre class based views do Django.
-
-O projeto consiste em um sistema (CRUD) to-do list, onde o usuário do sistema consegue realizar login no sistema,
-cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar todos as tarefas concluidas em uma tela onde as tarefas são apresentadas em uma tabela.
+O projeto consiste em um sistema to-do list, onde o usuário do sistema consegue realizar login no sistema,
+cadastrar-se como novo usuário, cadastrar espaço de trabalho, cadastrar tarefas, editar, deletar e visualizar todos as tarefas concluidas, em andamento e pausadas em uma tela 
+onde as tarefas são apresentadas em uma tabela. As tarefas são organizas em um espaço de trabalho, onde o usuário pode criar quantos quiser e separar suas tatarefas como por exemplo: Tarefas do dia a dia, faculdade e etc. 
 
 ### Pré-requisitos
 
@@ -18,8 +17,6 @@ cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar
 (No diretório do projeto rodar o comando: docker compose -f docker-compose.yml up -d --build);
 - OBS²: Caso opte por rodar o projeto sem usar o docker, é necessário remover algumas configurações de variáveis de ambiente existente no settings.py e deixar padrão;
 
-
-
 ### Execução do sistema
 
 - Basta entrar no diretório do projeto e no terminal rodar o comando: python manage.py runserver ou docker compose -f docker-compose.yml up -d --build;
@@ -29,7 +26,7 @@ cadastrar-se como novo usuário, cadastrar tarefas, editar, deletar e visualizar
 
 - Obs: As páginas são acessíveis somente com o usuário autenticado, obviamente, login e cadastro são de livre acesso.
 
-#### Rota para a página inicial (localhost);
+#### Rota para a página inicial;
 
 - Página inicial simples com botões para direcionar o usuário para login/cadastro.
 
