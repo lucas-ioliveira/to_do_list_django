@@ -134,4 +134,5 @@ def tarefas_deletar_view(request, pk):
         return redirect('tasks:work-space')
     return render(request, 'tarefa.html')
 
-
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)

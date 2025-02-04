@@ -22,3 +22,5 @@ urlpatterns = [
     path('',include('core.urls', namespace='tasks')),  
     path('accounts/', include('accounts.urls'))
 ]
+
+handler404 = 'core.views.custom_404'
