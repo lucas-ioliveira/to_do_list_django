@@ -4,7 +4,7 @@ LABEL mantainer="Lucas Oliveira"
 WORKDIR /app
 COPY . /app
 
-EXPOSE 8001
+EXPOSE 8002
 
 RUN apt-get update \
 && apt-get install -y make \

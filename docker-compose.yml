@@ -7,9 +7,9 @@ services:
       dockerfile: Dockerfile
     restart: on-failure
     ports:
-      - "8001:8001"
+      - "8002:8002"
     volumes:
       - .:/app
     env_file:
       - envs/.env
-    command: ["/bin/bash", "-c", "python manage.py runserver 0.0.0.0:8001"]
+    command: ["/bin/bash", "-c", "python manage.py runserver 0.0.0.0:8002"]
