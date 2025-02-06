@@ -37,7 +37,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title mb-4">{{ work.titulo }}</h5>
 
-                                    <form method="POST" action="{% url 'tasks:tarefas-list' work.id %}">
+                                    <form method="GET" action="{% url 'tasks:tarefas-list' work.id %}">
                                         {% csrf_token %}
 
                                         <button type="submit" class="btn btn-primary">

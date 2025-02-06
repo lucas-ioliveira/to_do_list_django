@@ -13,7 +13,7 @@
 
             <div id="divCriarTarefaBody" class="modal-body">
 
-                <form method="post" action="{% url 'tasks:tarefas-cadastrar' %}">
+                <form method="POST" action="{% url 'tasks:tarefas-cadastrar' %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="id_titulo">Título:</label>

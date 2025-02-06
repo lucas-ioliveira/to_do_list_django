@@ -37,21 +37,21 @@
             <div class="row d-flex align-items-center mt-3">
                 <div class="row ml-3">
                     
-                    <form method="POST" action="{% url 'tasks:tarefas-concluidas' %}">
+                    <form method="GET" action="{% url 'tasks:tarefas-concluidas' %}">
                         {% csrf_token %}
                         <input type="hidden" name="work_space" value="{{ work_space_id}}">
                         <button type="submit" class="btn btn-success mr-2">Concluídas
                             <span class="badge badge-light">{{ tarefas_concluidas }}</span>
                     </form>
 
-                    <form method="POST" action="{% url 'tasks:tarefas_andamento' %}">
+                    <form method="GET" action="{% url 'tasks:tarefas_andamento' %}">
                         {% csrf_token %}
                         <input type="hidden" name="work_space" value="{{ work_space_id}}">
                         <button type="submit" class="btn btn-info mr-2">Andamentos
                             <span class="badge badge-light">{{ tarefas_em_andamento }}</span>
                     </form>
 
-                    <form method="POST" action="{% url 'tasks:tarefas_pausadas' %}">
+                    <form method="GET" action="{% url 'tasks:tarefas_pausadas' %}">
                         {% csrf_token %}
                         <input type="hidden" name="work_space" value="{{ work_space_id}}">
                         <button type="submit" class="btn btn-warning mr-2" style="color: white;">Pausados
