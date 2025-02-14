@@ -42,6 +42,7 @@
                         <input type="hidden" name="work_space" value="{{ work_space_id}}">
                         <button type="submit" class="btn btn-success mr-2">Concluídas
                             <span class="badge badge-light">{{ tarefas_concluidas }}</span>
+                        </button>
                     </form>
 
                     <form method="GET" action="{% url 'tasks:tarefas_andamento' %}">
@@ -49,6 +50,7 @@
                         <input type="hidden" name="work_space" value="{{ work_space_id}}">
                         <button type="submit" class="btn btn-info mr-2">Andamentos
                             <span class="badge badge-light">{{ tarefas_em_andamento }}</span>
+                        </button>
                     </form>
 
                     <form method="GET" action="{% url 'tasks:tarefas_pausadas' %}">
@@ -56,13 +58,14 @@
                         <input type="hidden" name="work_space" value="{{ work_space_id}}">
                         <button type="submit" class="btn btn-warning mr-2" style="color: white;">Pausados
                             <span class="badge badge-light">{{ tarefas_pausadas}}</span>
+                        </button>
                     </form>
                 </div>
             </div>
 
         <br>
         
-        {% bootstrap_messages %}
+        {% comment %} {% bootstrap_messages %} {% endcomment %}
 
         {% if tarefas %}
 
@@ -141,6 +144,7 @@
         {% include "partials/modal/_modal_cadastrar_tarefa.html" %}
         {% include "partials/modal/_modal_detalhes.html" %}
         {% include "partials/modal/_modal_editar_tarefa.html" %}
+        {% include "partials/messages/_messages.html" %}
         {% include "partials/paginate/_paginate.html" %}
 
     </div>
