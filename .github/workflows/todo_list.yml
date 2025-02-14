@@ -52,5 +52,5 @@ jobs:
         run: |
           export PATH=$PATH:/usr/local/bin
 
-      - name: Subir containers do Docker
+      - name: Subir container Docker
         run: docker-compose up -d --build
