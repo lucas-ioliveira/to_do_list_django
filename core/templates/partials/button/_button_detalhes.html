@@ -1,8 +1,8 @@
-<button type="button" class="btn btn-secondary mr-2" onclick="modalDetalhes(
+<button type="button" class="btn btn-secondary btn-sm mr-2" onclick="modalDetalhes(
     '{{ tarefa.titulo|escapejs }}', 
     '{{ tarefa.status|escapejs }}', 
     '{{ tarefa.descricao|escapejs }}', 
     '{{ tarefa.data_criacao|escapejs }}', 
     '{{ tarefa.data_atualizacao|escapejs }}')">
-    <i class="fa-solid fa-circle-info"></i>
+    <i class="fa-solid fa-circle-info" title="Detalhes"></i>
 </button>
