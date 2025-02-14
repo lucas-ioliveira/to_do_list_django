@@ -27,7 +27,7 @@
 
         <br>
         
-        {% bootstrap_messages %}
+        {% comment %} {% bootstrap_messages %} {% endcomment %}
 
         {% if work_space %}
                 <div class="row mt-5">
@@ -69,5 +69,7 @@
     </div>
 
     {% include "partials/modal/_modal_add_espaco_trabalho.html" %}
+
+    {% include "partials/messages/_messages.html" %}
 
 {% endblock content %}
