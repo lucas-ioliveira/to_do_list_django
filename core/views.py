@@ -27,6 +27,7 @@ class WorkSpaceView(View):
         titulo = request.POST.get('titulo')
         work_space = WorkSpace.objects.create(titulo=titulo, usuario=request.user)
         work_space.save()
+        messages.success(request, 'Espaco de trabalho criado com sucesso!')
         return redirect('tasks:work-space')
 
 @method_decorator(login_required, name='dispatch')
