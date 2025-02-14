@@ -25,6 +25,17 @@
     <title>To-do List</title>
 </head>
 <body>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand" href="{% url 'tasks:work-space' %}">To-do List</a>
+    <form method="POST" action="{% url 'logout' %}">
+      {% csrf_token %}
+      
+      <button type="submit" class="btn btn-secondary">
+          Logout
+          <i class="fa-solid fa-right-from-bracket" style="margin-left: 5px;"></i>
+      </button>
+    </form>
+  </nav>
     <div class="container">
         
         {% block content %}
