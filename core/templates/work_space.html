@@ -4,23 +4,13 @@
 {% block content %}
 
     <div class="container mt-5">
-    
         <div class="row d-flex align-items-center">
             <div class="col">
                 <h1 class="mr-auto">Espaço de trabalho</h1>
             </div>
             <div class="col-auto">
 
-                <form method="POST" action="{% url 'logout' %}">
-                    {% csrf_token %}
-
-                    {% include "partials/button/_button_add_espaco_trabalho.html" %}
-
-                    <button type="submit" class="btn btn-secondary">
-                        Logout
-                        <i class="fa-solid fa-right-from-bracket" style="margin-left: 5px;"></i>
-                    </button>
-                </form>
+                {% include "partials/button/_button_add_espaco_trabalho.html" %}
 
             </div>
         </div>
