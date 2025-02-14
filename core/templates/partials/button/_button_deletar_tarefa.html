@@ -1,8 +1,29 @@
 
-    <form method="POST"  class="d-inline-flex" action="{% url 'tasks:tarefa_deletar' tarefa.id %}">
-        {% csrf_token %}
-        <input type="hidden" name="work_space" value="{{ work_space_id}}">
-        <button type="submit" class="btn btn-danger mr-2">
-        <i class="fa-solid fa-trash"></i>
-    </form>
+<form method="POST"  class="d-inline-flex" action="{% url 'tasks:tarefa_deletar' tarefa.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="work_space" value="{{ work_space_id}}">
+    <button type="submit" class="btn btn-danger mr-2 btn-sm" title="Deletar" onclick="confirmDelete(event)">
+         <i class="fa-solid fa-trash"></i>
+    </button>
+</form>
 
+<script>
+    function confirmDelete(event) {
+        event.preventDefault();  
+
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Você realmente deseja excluir esta tarefa?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.closest('form').submit(); 
+            }
+        });
+    }
+</script>

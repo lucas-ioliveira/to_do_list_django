@@ -1,6 +1,28 @@
 
     <form method="POST" id="formClonar"  class="d-inline-flex" action="{% url 'tasks:tarefa_concluir' tarefa.id %}">
         {% csrf_token %}
-        <button type="submit" class="btn btn-success mr-2">
+        <button type="submit" class="btn btn-success btn-sm mr-2" tille="Concluir" onclick="confirmDone(event)">
+            <i class="fa-solid fa-check"></i>
+        </button>
     </form>
-    <i class="fa-solid fa-check"></i>
+    
+    <script>
+        function confirmDone(event) {
+            event.preventDefault();  
+    
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "Você realmente deseja concluir esta tarefa?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, concluir!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    event.target.closest('form').submit(); 
+                }
+            });
+        }
+    </script>
