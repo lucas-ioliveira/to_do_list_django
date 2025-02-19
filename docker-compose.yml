@@ -12,4 +12,3 @@ services:
       - .:/app
     env_file:
       - envs/.env
-    command: ["/bin/bash", "-c", "python manage.py runserver 0.0.0.0:8002"]
