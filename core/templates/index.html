@@ -24,6 +24,14 @@
 
 <body>
 
+  <nav class="navbar navbar-light bg-light justify-content-between fixed-top">
+    <a class="navbar-brand" href="{% url 'tasks:index' %}">To-do List</a>
+    <div>
+    <a href="{% url 'login' %}" class="btn btn-primary mr-2">Login</a>
+    <a href="{% url 'registro' %}" class="btn btn-secondary">Cadastre-se</a>
+    </div>
+  </nav>
+
   <div class="container-fluid" style="background-color: #e9ecef;">
     
     <div class="row">
@@ -35,10 +43,10 @@
           <h1 class="text-center mt-5">Bem-vindo ao To-do List!</h1>
           <h3 class="text-center mt-3">Seu parceiro ideal para organizar e realizar suas tarefas.</h3>
 
-          <div class="text-center mt-4">
+          {% comment %} <div class="text-center mt-4">
             <a href="{% url 'login' %}" class="btn btn-primary mr-2">Login</a>
             <a href="{% url 'registro' %}" class="btn btn-secondary">Cadastre-se</a>
-          </div>
+          </div> {% endcomment %}
         </div>
 
       </div>
