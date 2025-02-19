@@ -30,7 +30,7 @@ onde as tarefas são apresentadas em uma tabela. As tarefas são organizas em um
 
 - Página inicial simples com botões para direcionar o usuário para login/cadastro.
 
-![Rota index](docs/img/tarefas-index.png)
+![Rota index](docs/img/index.png)
 
 
 #### Rota para login (accounts/login);
