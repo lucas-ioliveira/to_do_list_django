@@ -27,16 +27,34 @@
                         <div class="col-md-4 mb-4">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title mb-4">{{ work.titulo }}</h5>
 
-                                    <form method="GET" action="{% url 'tasks:tarefas-list' work.id %}">
-                                        {% csrf_token %}
+                                    <h5 class="card-title mb-5 text-center border-bottom">{{ work.titulo }}</h5>
 
-                                        <button type="submit" class="btn btn-primary">
-                                            Visualizar tarefas
-                                            <i class="fa-solid fa-eye" style="margin-left: 5px;"></i>
+                                    <div class="d-flex justify-content-end">
+                                        
+                                        <form class="mr-2" method="GET" action="{% url 'tasks:tarefas-list' work.id %}">
+                                            {% csrf_token %}
+
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <i class="fa-solid fa-eye" style="margin-left: 5px;"></i>
+                                            </button>
+                                        </form>
+
+                                    
+                                        <button type="submit" class="btn btn-warning btn-sm mr-2" 
+                                            onclick="modalEditarWorkSpace('{{ work.id }}')">
+                                            <i class="fa-solid fa-pen text-white"></i>
                                         </button>
-                                    </form>
+                                        
+
+                                        <form method="POST" action="">
+                                            {% csrf_token %}
+
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -61,6 +79,8 @@
     </div>
 
     {% include "partials/modal/_modal_add_espaco_trabalho.html" %}
+
+    {% include "partials/modal/_modal_editar_espaco_trabalho.html" %}
 
     {% include "partials/messages/_messages.html" %}
 

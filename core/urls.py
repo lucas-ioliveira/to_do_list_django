@@ -3,8 +3,9 @@ from django.urls import path
 from .views import IndexView
 # Funcionalidades do sistema
 from .views import (
-    WorkSpaceView, TarefasListView, TarefaCreateView, TarefasConcluidasView, TarefasAndamentoView,
-    TarefasPausadasView, TarefaConcluirView, TarefaEditarView, TarefaClonarView, TarefaDeletarView
+    WorkSpaceView, WorkSpaceEditarView, TarefasListView, TarefaCreateView, TarefasConcluidasView, 
+    TarefasAndamentoView, TarefasPausadasView, TarefaConcluirView, TarefaEditarView, TarefaClonarView, 
+    TarefaDeletarView
 )
 
 app_name = 'tasks'
@@ -13,6 +14,7 @@ router_path = 'tarefas'
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path(f'{router_path}/espaco-trabalho/', WorkSpaceView.as_view(), name='work-space'),
+    path(f'{router_path}/espaco-trabalho/editar/<int:pk>/', WorkSpaceEditarView.as_view(), name='work-space-editar'),
     path(f'{router_path}/<int:work_space>/', TarefasListView.as_view(), name='tarefas-list'),
     path(f'{router_path}/cadastrar/', TarefaCreateView.as_view(), name='tarefas-cadastrar'),
     path(f'{router_path}/concluidas/', TarefasConcluidasView.as_view(), name='tarefas-concluidas'),

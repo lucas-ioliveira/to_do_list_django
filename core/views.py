@@ -31,6 +31,15 @@ class WorkSpaceView(View):
         return redirect('tasks:work-space')
 
 @method_decorator(login_required, name='dispatch')
+class WorkSpaceEditarView(View):
+    def post(self, request, pk):
+        work_space = get_object_or_404(WorkSpace, pk=pk)
+        work_space.titulo = request.POST.get('titulo')
+        work_space.save()
+        messages.success(request, 'Espaco de trabalho editado com sucesso!')
+        return redirect('tasks:work-space')
+
+@method_decorator(login_required, name='dispatch')
 class TarefasListView(View):
     def get(self, request, work_space):
         work_space_id = WorkSpace.objects.get(id=work_space)
