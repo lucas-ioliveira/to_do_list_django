@@ -30,9 +30,9 @@
                 {% for tarefa in tarefas %}
                 <tr>
                     <td>{{ tarefa.titulo }}</td>
-                    <td style="color: white;" class="badge badge-warning">{{ tarefa.status }}</td>
-                    <td>{{ tarefa.data_criacao }}</td>
-                    <td>{{ tarefa.data_atualizacao}}</td>
+                    <td><span class="badge badge-warning" style="color: white;">{{ tarefa.status }}</span></td>
+                    <td>{{ tarefa.data_criacao|date:"d/m/Y H:i" }}</td>
+                    <td>{{ tarefa.data_atualizacao|date:"d/m/Y H:i"}}</td>
                     <td>
                         <div class="d-flex gap-2 justify-content-center align-items-center flex-wrap">
                             {% include "partials/button/_button_detalhes.html" %}
@@ -48,14 +48,11 @@
         </table>
     </div>
 
+    {% include "partials/messages/_messages.html" %}
     {% include "partials/modal/_modal_detalhes.html" %}
     {% include "partials/modal/_modal_editar_tarefa.html" %}
     {% include "partials/paginate/_paginate.html" %}
 
-</div>
-
-<div class="row mt-2">
-    {% bootstrap_messages%}
 </div>
 
 {% endblock content %}
