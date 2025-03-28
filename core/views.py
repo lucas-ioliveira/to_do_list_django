@@ -17,7 +17,7 @@ class IndexView(TemplateView):
 @method_decorator(login_required, name='dispatch')
 class WorkSpaceView(View):
     def get(self, request):
-        work_space = WorkSpace.objects.filter(usuario=request.user).order_by('data_criacao')
+        work_space = WorkSpace.objects.filter(usuario=request.user, ativo=True).order_by('data_criacao')
         context = {
             'work_space': work_space
         }
@@ -37,6 +37,15 @@ class WorkSpaceEditarView(View):
         work_space.titulo = request.POST.get('titulo')
         work_space.save()
         messages.success(request, 'Espaco de trabalho editado com sucesso!')
+        return redirect('tasks:work-space')
+
+@method_decorator(login_required, name='dispatch')
+class WorkSpaceDeletarView(View):
+    def post(self, request, pk):
+        work_space = get_object_or_404(WorkSpace, pk=pk)
+        work_space.ativo = False
+        work_space.save()
+        messages.success(request, 'Espaco de trabalho deletado com sucesso!')
         return redirect('tasks:work-space')
 
 @method_decorator(login_required, name='dispatch')
