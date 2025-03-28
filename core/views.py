@@ -71,6 +71,7 @@ class TarefasListView(View):
 @method_decorator(login_required, name='dispatch')
 class TarefaCreateView(View):
     def post(self, request):
+        previous_page = request.META.get('HTTP_REFERER')
         titulo = request.POST.get('titulo')
         descricao = request.POST.get('descricao')
         status = request.POST.get('status')
@@ -82,7 +83,7 @@ class TarefaCreateView(View):
                                          usuario=request.user)
         tarefa.save()
         messages.success(request, 'Tarefa criada com sucesso!')
-        return redirect('tasks:work-space')
+        return redirect(previous_page)
 
 @method_decorator(login_required, name='dispatch')
 class TarefasConcluidasView(View):
@@ -105,42 +106,46 @@ class TarefasPausadasView(View):
 @method_decorator(login_required, name='dispatch')
 class TarefaConcluirView(View):
     def post(self, request, pk):
+        previous_page = request.META.get('HTTP_REFERER')
         tarefa = get_object_or_404(ToDoList, pk=pk)
         tarefa.status = 'Concluido' 
         tarefa.save()
         messages.success(request, 'Tarefa concluida com sucesso!')
-        return redirect('tasks:work-space')
+        return redirect(previous_page)
     
 @method_decorator(login_required, name='dispatch')
 class TarefaEditarView(View):
     def post(self, request, pk):
+        previous_page = request.META.get('HTTP_REFERER')
         tarefa = get_object_or_404(ToDoList, pk=pk)
         tarefa.titulo = request.POST.get('titulo')
         tarefa.descricao = request.POST.get('descricao')
         tarefa.status = request.POST.get('status')
         tarefa.save()
         messages.success(request, 'Tarefa editada com sucesso!')
-        return redirect('tasks:work-space')
+        return redirect(previous_page)
 
 @method_decorator(login_required, name='dispatch')
 class TarefaClonarView(View):
     def post(self, request, pk):
+        previous_page = request.META.get('HTTP_REFERER')
         tarefa = get_object_or_404(ToDoList, pk=pk)
         tarefa.pk = None  
         tarefa.status = 'À fazer'  
         tarefa.data_criacao = datetime.now().date()
         tarefa.save()  
         messages.success(request, 'Tarefa clonada com sucesso!')
-        return redirect('tasks:work-space')
+        return redirect(previous_page)
 
 @method_decorator(login_required, name='dispatch')
 class TarefaDeletarView(View):
     def post(self, request, pk):
+        previous_page = request.META.get('HTTP_REFERER')
         tarefa = get_object_or_404(ToDoList, pk=pk)
         tarefa.ativo = False
         tarefa.save()
         messages.success(request, 'Tarefa deletada com sucesso!')
-        return redirect('tasks:work-space')
+        return redirect(previous_page)
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
