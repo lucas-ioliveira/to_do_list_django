@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load bootstrap4 %}
 {% block content %}
 
 <div class="row mt-5">
    
     <div class="col d-flex align-items-center">
-        <h1 class="mr-auto">Tarefas em andamento</h1>
+        <h1 class="mr-auto">Tarefas Pausadas</h1>
 
         <div>
             {% include "partials/links/_link_button_voltar.html" %}
@@ -30,7 +30,7 @@
                 {% for tarefa in tarefas %}
                 <tr>
                     <td>{{ tarefa.titulo }}</td>
-                    <td> <span class="badge badge-info">{{ tarefa.status }}</span></td>
+                    <td><span class="badge badge-warning" style="color: white;">{{ tarefa.status }}</span></td>
                     <td>{{ tarefa.data_criacao|date:"d/m/Y H:i" }}</td>
                     <td>{{ tarefa.data_atualizacao|date:"d/m/Y H:i"}}</td>
                     <td>

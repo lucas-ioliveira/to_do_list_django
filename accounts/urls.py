@@ -7,7 +7,7 @@ from accounts.views import RegistroUsuarioView
 urlpatterns = [
     path('login/', LoginView.as_view(
         form_class=AuthenticationForm,
-        template_name='login.html'
+        template_name='accounts/login.html'
     ), name='login'),
 
     path('logout/', LogoutView.as_view(

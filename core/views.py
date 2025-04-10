@@ -12,7 +12,8 @@ from .utils import get_tarefas_by_status
 
 
 class IndexView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'home/index.html'
+
 
 @method_decorator(login_required, name='dispatch')
 class WorkSpaceView(View):
@@ -21,14 +22,15 @@ class WorkSpaceView(View):
         context = {
             'work_space': work_space
         }
-        return render(request, 'work_space.html', context)
-    
+        return render(request, 'work_space/work_space.html', context)
+
     def post(self, request):
         titulo = request.POST.get('titulo')
         work_space = WorkSpace.objects.create(titulo=titulo, usuario=request.user)
         work_space.save()
         messages.success(request, 'Espaco de trabalho criado com sucesso!')
         return redirect('tasks:work-space')
+
 
 @method_decorator(login_required, name='dispatch')
 class WorkSpaceEditarView(View):
@@ -39,6 +41,7 @@ class WorkSpaceEditarView(View):
         messages.success(request, 'Espaco de trabalho editado com sucesso!')
         return redirect('tasks:work-space')
 
+
 @method_decorator(login_required, name='dispatch')
 class WorkSpaceDeletarView(View):
     def post(self, request, pk):
@@ -47,6 +50,7 @@ class WorkSpaceDeletarView(View):
         work_space.save()
         messages.success(request, 'Espaco de trabalho deletado com sucesso!')
         return redirect('tasks:work-space')
+
 
 @method_decorator(login_required, name='dispatch')
 class TarefasListView(View):
@@ -66,7 +70,8 @@ class TarefasListView(View):
             'tarefas_pausadas': get_tarefas_by_status(request.user, 'Pausado', work_space=work_space).count(),
         }
 
-        return render(request, 'tarefa.html', context)
+        return render(request, 'tasks/tarefa.html', context)
+
 
 @method_decorator(login_required, name='dispatch')
 class TarefaCreateView(View):
@@ -78,30 +83,35 @@ class TarefaCreateView(View):
         work_space_nome = request.POST.get('espaco_trabalho')
         work_space_id = WorkSpace.objects.filter(titulo=work_space_nome).first()
 
-        tarefa = ToDoList.objects.create(titulo=titulo, descricao=descricao, status=status, 
-                                         work_space=work_space_id, 
-                                         usuario=request.user)
+        tarefa = ToDoList.objects.create(
+            titulo=titulo, descricao=descricao, status=status,
+            work_space=work_space_id, usuario=request.user
+        )
         tarefa.save()
         messages.success(request, 'Tarefa criada com sucesso!')
         return redirect(previous_page)
+
 
 @method_decorator(login_required, name='dispatch')
 class TarefasConcluidasView(View):
     def get(self, request):
         tarefas = get_tarefas_by_status(request.user, 'Concluido', work_space=request.GET.get('work_space')).order_by('-data_criacao')
-        return render(request, 'tarefas_concluidas.html', {'tarefas': tarefas})
+        return render(request, 'tasks/tarefas_concluidas.html', {'tarefas': tarefas})
+
 
 @method_decorator(login_required, name='dispatch')
 class TarefasAndamentoView(View):
     def get(self, request):
         tarefas = get_tarefas_by_status(request.user, 'Andamento', work_space=request.GET.get('work_space')).order_by('-data_criacao')
-        return render(request, 'tarefas_andamento.html', {'tarefas': tarefas})
+        return render(request, 'tasks/tarefas_andamento.html', {'tarefas': tarefas})
+
 
 @method_decorator(login_required, name='dispatch')
 class TarefasPausadasView(View):
     def get(self, request):
         tarefas = get_tarefas_by_status(request.user, 'Pausado', work_space=request.GET.get('work_space')).order_by('-data_criacao')
-        return render(request, 'tarefas_pausadas.html', {'tarefas': tarefas})
+        return render(request, 'tasks/tarefas_pausadas.html', {'tarefas': tarefas})
+
 
 @method_decorator(login_required, name='dispatch')
 class TarefaConcluirView(View):
@@ -113,6 +123,7 @@ class TarefaConcluirView(View):
         messages.success(request, 'Tarefa concluida com sucesso!')
         return redirect(previous_page)
     
+
 @method_decorator(login_required, name='dispatch')
 class TarefaEditarView(View):
     def post(self, request, pk):
@@ -124,6 +135,7 @@ class TarefaEditarView(View):
         tarefa.save()
         messages.success(request, 'Tarefa editada com sucesso!')
         return redirect(previous_page)
+
 
 @method_decorator(login_required, name='dispatch')
 class TarefaClonarView(View):
@@ -137,6 +149,7 @@ class TarefaClonarView(View):
         messages.success(request, 'Tarefa clonada com sucesso!')
         return redirect(previous_page)
 
+
 @method_decorator(login_required, name='dispatch')
 class TarefaDeletarView(View):
     def post(self, request, pk):
@@ -146,6 +159,7 @@ class TarefaDeletarView(View):
         tarefa.save()
         messages.success(request, 'Tarefa deletada com sucesso!')
         return redirect(previous_page)
+
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
