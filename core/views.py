@@ -118,11 +118,11 @@ class TarefaConcluirView(View):
     def post(self, request, pk):
         previous_page = request.META.get('HTTP_REFERER')
         tarefa = get_object_or_404(ToDoList, pk=pk)
-        tarefa.status = 'Concluido' 
+        tarefa.status = 'Concluido'
         tarefa.save()
         messages.success(request, 'Tarefa concluida com sucesso!')
         return redirect(previous_page)
-    
+
 
 @method_decorator(login_required, name='dispatch')
 class TarefaEditarView(View):
@@ -142,10 +142,10 @@ class TarefaClonarView(View):
     def post(self, request, pk):
         previous_page = request.META.get('HTTP_REFERER')
         tarefa = get_object_or_404(ToDoList, pk=pk)
-        tarefa.pk = None  
-        tarefa.status = 'À fazer'  
+        tarefa.pk = None
+        tarefa.status = 'À fazer'
         tarefa.data_criacao = datetime.now().date()
-        tarefa.save()  
+        tarefa.save()
         messages.success(request, 'Tarefa clonada com sucesso!')
         return redirect(previous_page)
 

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import ToDoList, WorkSpace
 
+
 @admin.register(ToDoList)
 class ToDoListAdmin(admin.ModelAdmin):
     list_display = ('usuario', 'titulo', 'descricao', 'status', 'data_criacao',

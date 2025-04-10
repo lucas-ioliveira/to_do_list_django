@@ -3,7 +3,7 @@ from django.urls import path
 from .views import IndexView
 # Funcionalidades do sistema
 from .views import (
-    WorkSpaceView, WorkSpaceEditarView, WorkSpaceDeletarView, TarefasListView, TarefaCreateView, TarefasConcluidasView, 
+    WorkSpaceView, WorkSpaceEditarView, WorkSpaceDeletarView, TarefasListView, TarefaCreateView, TarefasConcluidasView,
     TarefasAndamentoView, TarefasPausadasView, TarefaConcluirView, TarefaEditarView, TarefaClonarView, TarefaDeletarView
 )
 
@@ -25,4 +25,3 @@ urlpatterns = [
     path(f'{router_path}/clonar/<int:pk>/', TarefaClonarView.as_view(), name='tarefa_clonar'),
     path(f'{router_path}/deletar/<int:pk>/', TarefaDeletarView.as_view(), name='tarefa_deletar'),
 ]
-
