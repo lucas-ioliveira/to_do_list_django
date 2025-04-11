@@ -1,110 +1,140 @@
 # To-do List.
 
-Nesse repositório contém um projeto fullstack realizado o front-end com Html, Css, BootStrap 4 e o back-end com Python e o framework Django.
+Nesse repositório contém um projeto fullstack realizado o front-end com Html, Css, BootStrap 4, JavaScript e o back-end com Python e o framework Django.
 
 O projeto consiste em um sistema to-do list, onde o usuário do sistema consegue realizar login no sistema,
 cadastrar-se como novo usuário, cadastrar espaço de trabalho, cadastrar tarefas, editar, deletar e visualizar todos as tarefas concluidas, em andamento e pausadas em uma tela 
 onde as tarefas são apresentadas em uma tabela. As tarefas são organizas em um espaço de trabalho, onde o usuário pode criar quantos quiser e separar suas tatarefas como por exemplo: Tarefas do dia a dia, faculdade e etc. 
 
-### Pré-requisitos
+<br>
 
-- Python instalado;
-- Criação do ambiente virtual (Linux: python3 -m venv venv ou no Windows: python -m venv venv);
-- Ativação do ambiente criado anteriormente (Linux: source venv/bin/activate ou no Windows: venv\Scripts\activate);
-- Instalação dos requirements.txt disponibilizados (pip insall -r requirements.txt);
-- O banco de dados é de sua escolha, mas nesse projeto utilizei o SQLite (Caso escolha um banco de dados diferente do padrão não esqueça de realizar as alterações no arquivo settings.py);
-- OBS¹: Caso tenha o Docker intalado será o suficiente e apenas precisará rodar o docker compose disponibilizado
-(No diretório do projeto rodar o comando: docker compose -f docker-compose.yml up -d --build);
-- OBS²: Caso opte por rodar o projeto sem usar o docker, é necessário remover algumas configurações de variáveis de ambiente existente no settings.py e deixar padrão;
+<h2>Pré-requisitos</h2>
 
-### Execução do sistema
+- [Docker](https://www.docker.com/) 
 
-- Basta entrar no diretório do projeto e no terminal rodar o comando: python manage.py runserver ou docker compose -f docker-compose.yml up -d --build;
-- O servidor será executado e se acessar localhost:8000 acessará a página inicial do sistema onde poderá realizar o cadastro ou o login;
+<br>
 
-### Exemplo da execução
+<h2>Clone</h2>
 
-- Obs: As páginas são acessíveis somente com o usuário autenticado, obviamente, login e cadastro são de livre acesso.
+```bash
+git clone https://github.com/lucas-ioliveira/to_do_list_django.git
+```
 
-#### Rota para a página inicial;
+<br>
 
-- Página inicial simples com botões para direcionar o usuário para login/cadastro.
+<h2 id="started">🚀 Primeiros passos</h2>
+
+<p>Basta entrar no diretório do projeto e no terminal rodar o comando:</p> 
+
+
+```bash
+docker compose -f docker-compose.yml up -d --build
+```
+
+<p>Isso fará com que todas as dependências sejam instaladas e um container docker seja executado.</p>
+
+<br>
+
+<p>Verifique se o container está em execução com o comando:</p>
+
+```bash
+docker ps -a
+```
+
+<br>
+
+<h2 id="routes">📍Rotas</h2>
+
+<p>As páginas são acessíveis somente com o usuário autenticado, obviamente, a home, login e cadastro são de livre acesso.</p>
+
+<br>
+
+**Home**
+
+<p>Página inicial simples com botões para direcionar o usuário para login/cadastro.</p>
 
 ![Rota index](docs/img/index.png)
 
+<br>
 
-#### Rota para login (accounts/login);
+**Login**
 
-- Consta algumas validações, o formulário tem que estar preenchido
-e com os dados certos para a liberação do acesso.
+<p>Consta algumas validações, o formulário tem que estar preenchido e com os dados certos para a liberação do acesso.</p>
 
 ![Rota de login](docs/img/tarefas-login.png)
 
+<br>
 
-#### Rota para cadastro de usuário (accounts/registro);
+**Cadastro de usuário**
 
-- Consta algumas validações, o formulário tem que estar preenchido
-e com os dados certos para a liberação do acesso.
+<p>Consta algumas validações, o formulário tem que estar preenchido e com os dados certos para realizar o cadastro.</p>
 
 ![Rota de cadastro de usuário](docs/img/tarefas-cadastro-user.png)
 
-#### Rota para  espaço de trabalho (/tarefas/espaco-trabalho/);
+<br>
 
- - Quando realizado o primeiro login no sistema, aparece o card informativo para criar um espaço de trabalho onde as tarefas ficarão organizadas.
+**Espaço de trabalho**
+
+ <p>Quando realizado o primeiro login no sistema, aparece o card informativo para criar um espaço de trabalho onde as tarefas ficarão organizadas.</p>
 
 ![Rota para o dashboard](docs/img/sem_espaco.png)
 
-#### Rota para o cadastrar um espaço de trabalho (/tarefas/espaco-trabalho/cadastrar/);
+<br>
 
- - Para criar uma tarefa é necessário criar um espaço de trabalho antes para que as tarefas fiquem organizadas
- por "módulos".
+**Cadastrar um espaço de trabalho**
+
+ <p>Para criar uma tarefa é necessário criar um espaço de trabalho antes para que as tarefas fiquem organizadas
+ por "módulos".</p>
 
 ![Rota para o dashboard](docs/img/criar_espaco.png)
 
-#### Rota para o espaço de trabalho (/tarefas/espaco-trabalho/);
+<br>
 
- - Dashboard para visualizar espaços de trabalhos cadastrados, a partir dele as tarefas são criadas e organizadas em cada espaço.
+**Espaço de trabalho**
+
+ <p>Dashboard para visualizar espaços de trabalhos cadastrados, a partir dele as tarefas são criadas e organizadas em cada espaço.</p>
 
 ![Rota para o dashboard](docs/img/espaco_trabalho.png)
 
-#### Rota para o dashboard (/tarefas);
+<br>
 
- - Caso não tenha nenhuma  tarefa cadastrada é mostrado um card informativo.
+**Tarefas**
+
+ <p>Caso não tenha nenhuma  tarefa cadastrada é mostrado um card informativo.</p>
 
 ![Card informativo](docs/img/sem_tarefas.png)
 
+<br>
 
-#### Rota para o dashboard (/tarefas);
-
- - Dashboard para visualizar as tarefas que precisam ser realizadas ou em outro status. Nessa tela o usuário pode realizar algumas ações.
+ <p>Dashboard para visualizar as tarefas que precisam ser realizadas ou em outro status. Nessa tela o usuário pode realizar algumas ações.</p>
 
 ![Rota para o dashboard](docs/img/tarefas-principal.png)
 
+<br>
 
-#### Rota para cadastrar tarefas (/tarefas/cadastrar) ou editar (/tarefas/atualizar/id/);
+**Cadastrar tarefas**
 
-- Realizar o cadastro ou editar a tarefa, pois usa o mesmo formulário.
+<p>Realizar o cadastro ou editar a tarefa, pois usa o mesmo formulário.</p>
 
 ![Rota para cadastrar tarefa](docs/img/tarefas-cadastrar.png)
 
+<br>
 
-#### Rota para visualizar as tarefas concluídas (tarefas/concluidas);
-
-- Visualizar tarefas concluidas.
+**Visualizar as tarefas concluídas**
 
 ![Rota para listar tarefas concluídas](docs/img/tarefas-concluido.png)
 
+<br>
 
-#### Rota para visualizar as tarefas em andamento (tarefas/andamento);
-
-- Visualizar tarefas em andamento.
+**Visualizar as tarefas em andamento**
 
 ![Rota para listar tarefas em andamento](docs/img/tarefas-andamento.png)
 
+<br>
 
-#### Modal detalhes;
+**Modal detalhes**
 
-- Ao clicar no botão detalhes sobe um modal com as informações da tarefa.
+<p>Ao clicar no botão detalhes sobe um modal com as informações da tarefa.</p>
 
 ![Modal detalhes](docs/img/tarefas-detalhes.png)
 
