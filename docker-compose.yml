@@ -4,7 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: on-failure
+    stdin_open: True
+    tty: True
+    restart: always
     ports:
       - "8002:8002"
     volumes:

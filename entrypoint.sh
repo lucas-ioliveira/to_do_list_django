@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Aguardando o banco de dados..."
-sleep 5  
+sleep 5
 
 echo "Aplicando migrações..."
 python manage.py migrate
